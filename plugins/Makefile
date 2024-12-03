@@ -560,7 +560,7 @@ PLUGIN_FILES += $(filter-out Befaco/src/plugin.cpp Befaco/src/MidiThing.cpp,$(wi
 PLUGIN_FILES += $(wildcard Befaco/src/noise-plethora/*/*.cpp)
 
 # modules/types which are present in other plugins
-BEFACO_CUSTOM = ADSR Mixer chowdsp Burst RecordButton
+BEFACO_CUSTOM = ADSR Mixer chowdsp Burst RecordButton Bypass
 
 BEFACO_FLAGS = $(filter-out -fsingle-precision-constant,$(filter-out -std=gnu++11,$(BUILD_CXX_FLAGS)))
 BEFACO_FLAGS += -std=gnu++17
@@ -938,7 +938,7 @@ MSCHACK_CUSTOM_PER_FILE = MAIN_SYNC_CLOCK FILTER_STRUCT FILTER_PARAM_STRUCT OSC_
 PLUGIN_FILES += $(filter-out MSM/src/MSM.cpp,$(wildcard MSM/src/*.cpp))
 
 # modules/types which are present in other plugins
-MSM_CUSTOM = ADSR BlankPanel Delay LFO LowFrequencyOscillator Mult Noise OP VCA VCO sawTable triTable
+MSM_CUSTOM = ADSR BlankPanel Delay LFO LowFrequencyOscillator Mult Noise OP VCA VCO sawTable triTable #Wavefolder
 
 # --------------------------------------------------------------
 # MUS-X
@@ -1311,6 +1311,14 @@ PLUGIN_BINARIES += ValleyAudio/src/XFADE.bin
 # modules/types which are present in other plugins
 VALLEYAUDIO_CUSTOM = $(DRWAV) Chord DigitalDisplay
 VALLEYAUDIO_CUSTOM_PER_FILE = TempoKnob
+
+# --------------------------------------------------------------
+# VenomModules
+
+PLUGIN_FILES += $(filter-out VenomModules/src/plugin.cpp VenomModules/src/Oscillator.cpp,$(wildcard VenomModules/src/*.cpp))
+
+# modules/types which are present in other plugins
+VENOMMODULES_CUSTOM = Bypass Logic WaveFolder
 
 # --------------------------------------------------------------
 # Voxglitch
@@ -2809,6 +2817,13 @@ $(BUILD_DIR)/ValleyAudio/%.cpp.o: ValleyAudio/%.cpp
 		-IValleyAudio/src \
 		-Wno-sign-compare \
 		-Wno-unused-but-set-variable
+		
+$(BUILD_DIR)/VenomModules/src/%.cpp.o: VenomModules/src/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(VENOMMODULES_CUSTOM),$(call custom_module_names,$(m),VenomModules)) \
+		-DpluginInstance=pluginInstance__VenomModules \
 
 $(BUILD_DIR)/voxglitch/%.cpp.o: voxglitch/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
