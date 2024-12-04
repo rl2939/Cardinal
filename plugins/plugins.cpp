@@ -882,28 +882,11 @@ void surgext_rack_update_theme();
 /* NOTE too much noise in original include, do this a different way
 #include "VenomModules/src/plugin.hpp"
 */
-// #define modelBypass modelVenomModulesBypass
-// #define modelLogic modelVenomModulesLogic
-// #define modelWaveFolder modelVenomModulesWaveFolder
-static const std::vector<std::string> modThemes = {
-  "Venom Default",
-  "Ivory",
-  "Coal",
-  "Earth",
-  "Danger"
-};
-
-static const std::vector<std::string> themes = {
-  "Ivory",
-  "Coal",
-  "Earth",
-  "Danger"
-};
-
-int getDefaultTheme();
-int getDefaultDarkTheme();
-void setDefaultTheme(int theme);
-void setDefaultDarkTheme(int theme);
+#define modelBypass modelVenomModulesBypass
+#define modelLogic modelVenomModulesLogic
+#define modelWaveFolder modelVenomModulesWaveFolder
+#define modelMix4 VenomModulesModelMix4
+#define modelOscillator VenomModulesOscillator
 
 Model* modelAuxClone;
 Model* modelBayInput;
@@ -934,7 +917,7 @@ Model* modelMixSolo;
 Model* modelMousePad;
 Model* modelMultiMerge;
 Model* modelMultiSplit;
-//Model* modelOscillator;
+Model* modelOscillator;
 Model* modelNORS_IQ;
 Model* modelNORSIQChord2Scale;
 Model* modelPolyClone;
@@ -958,9 +941,11 @@ Model* modelVenomBlank;
 Model* modelWaveFolder;
 Model* modelWidgetMenuExtender;
 Model* modelWinComp;
-// #undef modelBypass
-// #undef modelLogic
-// #undef modelWaveFolder
+#undef modelBypass
+#undef modelLogic
+#undef modelWaveFolder
+#undef modelMix4
+#undef modelOscillator 
 
 // Voxglitch
 #define modelLooper modelVoxglitchLooper
@@ -1691,6 +1676,7 @@ static void initStatic__Befaco()
 #define modelADSR modelBefacoADSR
 #define modelMixer modelBefacoMixer
 #define modelBurst modelBefacoBurst
+#define modelBypass modelBefacoBypass
         p->addModel(modelEvenVCO);
         p->addModel(modelRampage);
         p->addModel(modelABC);
@@ -1720,6 +1706,7 @@ static void initStatic__Befaco()
 #undef modelADSR
 #undef modelMixer
 #undef modelBurst
+#undef modelBypass
 
         // NOTE disabled in Cardinal due to MIDI usage
         spl.removeModule("MidiThingV2");
@@ -3511,9 +3498,11 @@ static void initStatic__VenomModules()
     const StaticPluginLoader spl(p, "VenomModules");
     if (spl.ok())
     {
-// #define modelBypass modelVenomModulesBypass
-// #define modelLogic modelVenomModulesLogic
-// #define modelWaveFolder modelVenomModulesWaveFolder
+#define modelBypass modelVenomModulesBypass
+#define modelLogic modelVenomModulesLogic
+#define modelWaveFolder modelVenomModulesWaveFolder
+#define modelMix4 VenomModulesModelMix4
+#define modelOscillator VenomModulesOscillator
         p->addModel(modelAuxClone);
         p->addModel(modelBayInput);
         p->addModel(modelBayNorm);
@@ -3543,7 +3532,7 @@ static void initStatic__VenomModules()
         p->addModel(modelMousePad);
         p->addModel(modelMultiMerge);
         p->addModel(modelMultiSplit);
-        //p->addModel(modelOscillator);
+        p->addModel(modelOscillator);
         p->addModel(modelNORS_IQ);
         p->addModel(modelNORSIQChord2Scale);
         p->addModel(modelPolyClone);
@@ -3567,11 +3556,11 @@ static void initStatic__VenomModules()
         p->addModel(modelWaveFolder);
         p->addModel(modelWidgetMenuExtender);
         p->addModel(modelWinComp);
-        //Calls for non existant functions
-        spl.removeModule("Oscillator");
-// #undef modelBypass
-// #undef modelLogic
-// #undef modelWaveFolder
+#undef modelBypass
+#undef modelLogic
+#undef modelWaveFolder
+#undef modelMix4
+#undef modelOscillator
     }
 }
 

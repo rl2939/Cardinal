@@ -635,7 +635,7 @@ MINIPLUGIN_FILES += BogaudioModules/src/dsp/filters/resample.cpp
 MINIPLUGIN_FILES += BogaudioModules-helper/BogaudioModules-helper.cpp
 
 # modules/types which are present in other plugins
-BOGAUDIO_CUSTOM = ADSR BlueNoiseGenerator LFO Noise VCA VCO VCF
+BOGAUDIO_CUSTOM = ADSR BlueNoiseGenerator LFO Noise VCA VCO VCF Mix4
 BOGAUDIO_CUSTOM_PER_FILE = ARQuantity ARSlider AttackMenuItem ReleaseMenuItem
 
 # --------------------------------------------------------------
@@ -686,7 +686,7 @@ CVFUNK_CUSTOM = Steps
 PLUGIN_FILES += $(filter-out dBiz/src/plugin.cpp,$(wildcard dBiz/src/*.cpp))
 
 # modules/types which are present in other plugins
-DBIZ_CUSTOM  = Chord DarkDefaultItem Divider FourSeq FourSeqWidget OrangeLight VCA4 Wavefolder darkPanelID lightPanelID
+DBIZ_CUSTOM  = Chord DarkDefaultItem Divider FourSeq FourSeqWidget OrangeLight VCA4 Wavefolder darkPanelID lightPanelID Oscillator
 DBIZ_CUSTOM_PER_FILE = LERP MultiFilter Oscillator calcOutput sineOsc subBank
 
 # --------------------------------------------------------------
@@ -756,6 +756,7 @@ PLUGIN_FILES += $(filter-out GoodSheperd/src/plugin.cpp,$(wildcard GoodSheperd/s
 # GrandeModular
 
 PLUGIN_FILES += $(filter-out GrandeModular/src/plugin.cpp,$(wildcard GrandeModular/src/*.cpp))
+GRANDEMODULAR_CUSTOM = Logic
 
 # --------------------------------------------------------------
 # H4N4 Modules
@@ -938,7 +939,7 @@ MSCHACK_CUSTOM_PER_FILE = MAIN_SYNC_CLOCK FILTER_STRUCT FILTER_PARAM_STRUCT OSC_
 PLUGIN_FILES += $(filter-out MSM/src/MSM.cpp,$(wildcard MSM/src/*.cpp))
 
 # modules/types which are present in other plugins
-MSM_CUSTOM = ADSR BlankPanel Delay LFO LowFrequencyOscillator Mult Noise OP VCA VCO sawTable triTable #Wavefolder
+MSM_CUSTOM = ADSR BlankPanel Delay LFO LowFrequencyOscillator Mult Noise OP VCA VCO sawTable triTable Wavefolder
 
 # --------------------------------------------------------------
 # MUS-X
@@ -1315,10 +1316,10 @@ VALLEYAUDIO_CUSTOM_PER_FILE = TempoKnob
 # --------------------------------------------------------------
 # VenomModules
 
-PLUGIN_FILES += $(filter-out VenomModules/src/plugin.cpp VenomModules/src/Oscillator.cpp,$(wildcard VenomModules/src/*.cpp))
+PLUGIN_FILES += $(filter-out VenomModules/src/plugin.cpp,$(wildcard VenomModules/src/*.cpp))
 
 # modules/types which are present in other plugins
-VENOMMODULES_CUSTOM = Bypass Logic WaveFolder
+VENOMMODULES_CUSTOM = Bypass Logic WaveFolder Mix4 Oscillator
 
 # --------------------------------------------------------------
 # Voxglitch
