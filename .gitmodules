@@ -262,4 +262,4 @@
 	url = https://github.com/wapiflapi/admiral.git
 [submodule "plugins/Venom"]
 	path = plugins/Venom
-	url = https://github.com/DaveBenham/VenomModules
+	url = https://github.com/DaveBenham/VenomModules.git
