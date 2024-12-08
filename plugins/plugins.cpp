@@ -886,7 +886,9 @@ void surgext_rack_update_theme();
 #define modelLogic modelVenomModulesLogic
 #define modelWaveFolder modelVenomModulesWaveFolder
 #define modelMix4 VenomModulesModelMix4
-#define modelOscillator VenomModulesOscillator
+//#define modelOscillator VenomModulesOscillator
+#define modelYellowRedLight VenomModulesYellowRedLight
+#define modelDigitalDisplay VenomModulesDigitalDisplay
 
 Model* modelAuxClone;
 Model* modelBayInput;
@@ -945,7 +947,9 @@ Model* modelWinComp;
 #undef modelLogic
 #undef modelWaveFolder
 #undef modelMix4
-#undef modelOscillator 
+//#undef modelOscillator 
+#undef YellowRedLight
+#undef modelDigitalDisplay
 
 // Voxglitch
 #define modelLooper modelVoxglitchLooper
@@ -3502,7 +3506,9 @@ static void initStatic__VenomModules()
 #define modelLogic modelVenomModulesLogic
 #define modelWaveFolder modelVenomModulesWaveFolder
 #define modelMix4 VenomModulesModelMix4
-#define modelOscillator VenomModulesOscillator
+//#define modelOscillator VenomModulesOscillator
+#define modelYellowRedLight VenomModulesYellowRedLight
+#define modelDigitalDisplay VenomModulesDigitalDisplay
         p->addModel(modelAuxClone);
         p->addModel(modelBayInput);
         p->addModel(modelBayNorm);
@@ -3560,7 +3566,9 @@ static void initStatic__VenomModules()
 #undef modelLogic
 #undef modelWaveFolder
 #undef modelMix4
-#undef modelOscillator
+//#undef modelOscillator
+#undef YellowRedLight
+#undef modelDigitalDisplay
     }
 }
 

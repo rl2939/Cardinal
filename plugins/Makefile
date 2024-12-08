@@ -1319,7 +1319,7 @@ VALLEYAUDIO_CUSTOM_PER_FILE = TempoKnob
 PLUGIN_FILES += $(filter-out VenomModules/src/plugin.cpp,$(wildcard VenomModules/src/*.cpp))
 
 # modules/types which are present in other plugins
-VENOMMODULES_CUSTOM = Bypass Logic WaveFolder Mix4 Oscillator
+VENOMMODULES_CUSTOM = Bypass Logic WaveFolder Mix4 YellowRedLight DigitalDisplay
 
 # --------------------------------------------------------------
 # Voxglitch
