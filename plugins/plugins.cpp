@@ -147,10 +147,12 @@ extern Model* modelChord;
 #define modelADSR modelBefacoADSR
 #define modelMixer modelBefacoMixer
 #define modelBurst modelBefacoBurst
+#define modelBypass modelBefacoBypass
 #include "Befaco/src/plugin.hpp"
 #undef modelADSR
 #undef modelMixer
 #undef modelBurst
+#undef modelBypass
 
 // Bidoo
 #include "Bidoo/src/plugin.hpp"
@@ -887,6 +889,12 @@ void surgext_rack_update_theme();
 #undef modelBypass
 #undef modelLogic
 
+// TODO: Figure out a a better way to define these
+int getDefaultTheme(){ return 0; }
+int getDefaultDarkTheme(){ return 1; }
+void setDefaultTheme(int){  }
+void setDefaultDarkTheme(int){  }
+
 // Voxglitch
 #define modelLooper modelVoxglitchLooper
 #include "voxglitch/src/plugin.hpp"
@@ -1616,6 +1624,7 @@ static void initStatic__Befaco()
 #define modelADSR modelBefacoADSR
 #define modelMixer modelBefacoMixer
 #define modelBurst modelBefacoBurst
+#define modelBypass modelBefacoBypass
         p->addModel(modelEvenVCO);
         p->addModel(modelRampage);
         p->addModel(modelABC);
@@ -1645,6 +1654,7 @@ static void initStatic__Befaco()
 #undef modelADSR
 #undef modelMixer
 #undef modelBurst
+#undef modelBypass
 
         // NOTE disabled in Cardinal due to MIDI usage
         spl.removeModule("MidiThingV2");
@@ -3462,7 +3472,7 @@ static void initStatic__Venom()
         p->addModel(modelMixPan);
         p->addModel(modelMixSend);
         p->addModel(modelMixSolo);
-        p->addModel(modelMousePad);
+        //p->addModel(modelMousePad);
         p->addModel(modelMultiMerge);
         p->addModel(modelMultiSplit);
         p->addModel(modelOscillator);
@@ -3489,6 +3499,9 @@ static void initStatic__Venom()
         p->addModel(modelWaveFolder);
         p->addModel(modelWidgetMenuExtender);
         p->addModel(modelWinComp);
+
+        //GLFW errors
+        spl.removeModule("MousePad");
 #undef modelBypass
 #undef modelLogic
     }

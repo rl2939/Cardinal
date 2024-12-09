@@ -1312,7 +1312,7 @@ VALLEYAUDIO_CUSTOM_PER_FILE = TempoKnob
 
 # --------------------------------------------------------------
 # Venom
-PLUGIN_FILES += $(filter-out Venom/src/plugin.cpp,$(wildcard Venom/src/*.cpp))
+PLUGIN_FILES += $(filter-out Venom/src/plugin.cpp Venom/src/MousePad.cpp,$(wildcard Venom/src/*.cpp))
 # PLUGIN_FILES += $(wildcard Venom/src/*.cpp)
 
 VENOM_CUSTOM = Bypass Logic DigitalDisplay YellowRedLight
