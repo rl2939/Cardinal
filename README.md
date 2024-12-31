@@ -178,6 +178,7 @@ At the moment the following 3rd-party modules are provided:
 - [MUS-X](https://github.com/Jojosito/MUS-X)
 - [Myth](https://github.com/Ahineya/vcv-myth-plugin)
 - [Nonlinear Circuits](https://github.com/mhetrick/nonlinearcircuits)
+- [OptikEcho](https://github.com/gregh3285/OptikEcho)
 - [Orbits](https://github.com/RareBreeds/Orbits)
 - [Parable Instruments](https://github.com/adbrant/ArableInstruments)
 - [Path Set](https://github.com/patheros/PathSetModules)

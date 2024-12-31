@@ -72,6 +72,7 @@ Below follows a list of all code licenses used in Cardinal and linked submodules
 | MUS-X                   | GPL-3.0-or-later         | |
 | Myth                    | GPL-3.0-or-later         | |
 | Nonlinear Circuits      | CC0-1.0                  | |
+| OptikEcho               | GPL-3.0-or-later         | |
 | Orbits                  | GPL-3.0-or-later         | |
 | Parable Instruments     | GPL-3.0-or-later         | |
 | Path Set                | GPL-3.0-or-later         | |
