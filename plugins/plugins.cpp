@@ -1304,6 +1304,15 @@ static void initStatic__alefsbits()
         p->addModel(modelMath);
         p->addModel(modelLogic);
         p->addModel(modelProbablynot);
+        p->addModel(modelPolyplay);
+        p->addModel(modelLights);
+        p->addModel(modelSlips);
+        p->addModel(modelTurnt);
+        p->addModel(modelSlipspander);
+        p->addModel(modelNos);
+        p->addModel(modelLucc);
+        p->addModel(modelPolyshuffle);
+        p->addModel(modelPolycounter);
 #undef modelSteps
 #undef modelLogic
     }

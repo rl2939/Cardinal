@@ -333,6 +333,9 @@ PLUGIN_FILES += $(filter-out alefsbits/src/plugin.cpp,$(wildcard alefsbits/src/*
 # modules/types which are present in other plugins
 ALEFSBITS_CUSTOM = Steps Logic
 
+ALEFSBITS_FLAGS = $(filter-out -std=c++11,$(BUILD_CXX_FLAGS))
+ALEFSBITS_FLAGS += -std=c++17 -Isrc/utils -Isrc/widgets
+
 # --------------------------------------------------------------
 # AlgoritmArte
 
@@ -2149,7 +2152,7 @@ $(BUILD_DIR)/admiral/%.cpp.o: admiral/%.cpp
 $(BUILD_DIR)/alefsbits/%.cpp.o: alefsbits/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
 	@echo "Compiling $<"
-	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+	$(SILENT)$(CXX) $< $(ALEFSBITS_FLAGS) -c -o $@ \
 		$(foreach m,$(ALEFSBITS_CUSTOM),$(call custom_module_names,$(m),alefsbits)) \
 		-DpluginInstance=pluginInstance__alefsbits
 
