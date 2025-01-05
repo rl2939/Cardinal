@@ -635,7 +635,7 @@ MINIPLUGIN_FILES += BogaudioModules/src/dsp/filters/resample.cpp
 MINIPLUGIN_FILES += BogaudioModules-helper/BogaudioModules-helper.cpp
 
 # modules/types which are present in other plugins
-BOGAUDIO_CUSTOM = ADSR BlueNoiseGenerator LFO Noise VCA VCO VCF
+BOGAUDIO_CUSTOM = ADSR BlueNoiseGenerator LFO Noise VCA VCO VCF DCBlocker
 BOGAUDIO_CUSTOM_PER_FILE = ARQuantity ARSlider AttackMenuItem ReleaseMenuItem
 
 # --------------------------------------------------------------
@@ -688,6 +688,13 @@ PLUGIN_FILES += $(filter-out dBiz/src/plugin.cpp,$(wildcard dBiz/src/*.cpp))
 # modules/types which are present in other plugins
 DBIZ_CUSTOM  = Chord DarkDefaultItem Divider FourSeq FourSeqWidget OrangeLight VCA4 Wavefolder darkPanelID lightPanelID
 DBIZ_CUSTOM_PER_FILE = LERP MultiFilter Oscillator calcOutput sineOsc subBank
+
+# --------------------------------------------------------------
+# dbRackFormulaOne
+
+PLUGIN_FILES += $(filter-out dbRackFormulaOne/src/plugin.cpp,$(wildcard dbRackFormulaOne/src/*.cpp))
+
+DBRACKFORMULAONE_CUSTOM = DCBlocker 
 
 # --------------------------------------------------------------
 # DHE-Modules
@@ -2329,6 +2336,14 @@ $(BUILD_DIR)/dBiz/src/%.cpp.o: dBiz/src/%.cpp
 		$(foreach m,$(DBIZ_CUSTOM),$(call custom_module_names,$(m),dBiz)) \
 		$(foreach m,$(DBIZ_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),dBiz_$(shell basename $*))) \
 		-DpluginInstance=pluginInstance__dBiz
+
+$(BUILD_DIR)/dbRackFormulaOne/src/%.cpp.o: dbRackFormulaOne/src/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(DBRACKFORMULAONE_CUSTOM),$(call custom_module_names,$(m),dbRackFormulaOne)) \
+		$(foreach m,$(DBRACKFORMULAONE_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),dbRackFormulaOne_$(shell basename $*))) \
+		-DpluginInstance=pluginInstance__dbRackFormulaOne
 
 $(BUILD_DIR)/DHE-Modules/src/%.cpp.o: DHE-Modules/src/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"

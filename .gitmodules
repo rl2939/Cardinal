@@ -261,3 +261,6 @@
 	path = plugins/admiral
 	url = https://github.com/wapiflapi/admiral.git
 
+[submodule "plugins/dbRackFormulaOne"]
+	path = plugins/dbRackFormulaOne
+	url = https://github.com/docb/dbRackFormulaOne.git

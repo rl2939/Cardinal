@@ -371,6 +371,13 @@ extern Model* modelTestVCF;
 #undef modelFourSeq
 #undef modelVCA4
 
+//dbRackFormulaOne
+/* NOTE too much noise in original include, do this a different way
+#include "dbRackFormulaOne/src/plugin.hpp"
+*/
+Model* modelFormulaOne;
+Model* modelFormulaOneEdit;
+
 // DHEModules
 // NOTE very unique way of handling init, needs special handling
 namespace dhe {
@@ -946,6 +953,7 @@ Plugin* pluginInstance__ChowDSP;
 Plugin* pluginInstance__Computerscare;
 Plugin* pluginInstance__CVfunk;
 Plugin* pluginInstance__dBiz;
+Plugin* pluginInstance__dbRackFormulaOne;
 Plugin* pluginInstance__DHE;
 extern Plugin* pluginInstance__DrumKit;
 Plugin* pluginInstance__EnigmaCurry;
@@ -2101,6 +2109,18 @@ static void initStatic__dBiz()
     }
 }
 
+static void initStatic__dbRackFormulaOne()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__dbRackFormulaOne = p;
+
+    const StaticPluginLoader spl(p, "dbRackFormulaOne");
+    if (spl.ok())
+    {
+        p->addModel(modelFormulaOne);
+        p->addModel(modelFormulaOneEdit);
+    }
+}
 static void initStatic__DHE()
 {
     Plugin* const p = new Plugin;
@@ -3564,6 +3584,7 @@ void initStaticPlugins()
     initStatic__Computerscare();
     initStatic__CVfunk();
     initStatic__dBiz();
+    initStatic__dbRackFormulaOne();
     initStatic__DHE();
     initStatic__DrumKit();
     initStatic__EnigmaCurry();
