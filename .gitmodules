@@ -261,3 +261,6 @@
 	path = plugins/admiral
 	url = https://github.com/wapiflapi/admiral.git
 
+[submodule "plugins/1987"]
+	path = plugins/1987
+	url = https://github.com/cfoulc/1987.git

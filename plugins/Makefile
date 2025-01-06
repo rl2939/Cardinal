@@ -316,6 +316,11 @@ FUNDAMENTAL_CUSTOM = $(DRWAV)
 # PLUGIN_FILES += $(wildcard ZamAudio/src/*.cpp)
 
 # --------------------------------------------------------------
+# 1987
+
+PLUGIN_FILES += $(filter-out 1987/src/plugin.cpp,$(wildcard 1987/src/*.cpp))
+
+# --------------------------------------------------------------
 # 21kHz
 
 PLUGIN_FILES += $(filter-out 21kHz/src/21kHz.cpp,$(wildcard 21kHz/src/*.cpp))
@@ -2116,6 +2121,13 @@ $(BUILD_DIR)/Cardinal/src/AIDA-X.cpp.o: Cardinal/src/AIDA-X.cpp
 		-Dstbrp_rect=stbrp_rect_cardinal \
 		$(RTNEURAL_FLAGS) \
 		$(CARLA_FLAGS)
+
+$(BUILD_DIR)/1987/%.cpp.o: 1987/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(1987_CUSTOM),$(call custom_module_names,$(m),1987)) \
+		-DpluginInstance=pluginInstance__1987
 
 $(BUILD_DIR)/21kHz/%.cpp.o: 21kHz/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"

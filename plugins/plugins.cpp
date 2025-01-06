@@ -18,6 +18,9 @@
 // ZamAudio (always enabled) - TODO
 // #include "ZamAudio/src/plugin.hpp"
 
+// 1987
+#include "1987/src/plugin.hpp"
+
 // 21kHz
 #include "21kHz/src/21kHz.hpp"
 
@@ -921,6 +924,7 @@ void writeDefaultTheme() {}
 Plugin* pluginInstance__Cardinal;
 Plugin* pluginInstance__Fundamental;
 // Plugin* pluginInstance__ZamAudio;
+Plugin* pluginInstance__1987;
 Plugin* pluginInstance__21kHz;
 Plugin* pluginInstance__8Mode;
 extern Plugin* pluginInstance__AaronStatic;
@@ -1225,6 +1229,19 @@ static void initStatic__ZamAudio()
     }
 }
 */
+
+static void initStatic__1987()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__1987 = p;
+
+    const StaticPluginLoader spl(p, "1987");
+    if (spl.ok())
+    {
+        p->addModel(modelrackdrums);	
+        p->addModel(modelrackdrums_trig);
+    }
+}
 
 static void initStatic__21kHz()
 {
@@ -3539,6 +3556,7 @@ void initStaticPlugins()
     initStatic__Cardinal();
     initStatic__Fundamental();
     // initStatic__ZamAudio();
+    initStatic__1987();
     initStatic__21kHz();
     initStatic__8Mode();
     initStatic__AaronStatic();
