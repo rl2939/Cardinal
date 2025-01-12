@@ -560,7 +560,7 @@ PLUGIN_FILES += $(filter-out Befaco/src/plugin.cpp Befaco/src/MidiThing.cpp,$(wi
 PLUGIN_FILES += $(wildcard Befaco/src/noise-plethora/*/*.cpp)
 
 # modules/types which are present in other plugins
-BEFACO_CUSTOM = ADSR Mixer chowdsp Burst RecordButton
+BEFACO_CUSTOM = ADSR Mixer chowdsp Burst RecordButton Octaves
 
 BEFACO_FLAGS = $(filter-out -fsingle-precision-constant,$(filter-out -std=gnu++11,$(BUILD_CXX_FLAGS)))
 BEFACO_FLAGS += -std=gnu++17
@@ -662,7 +662,7 @@ CATROMODULO_CUSTOM = LowFrequencyOscillator NumDisplayWidget
 PLUGIN_FILES += $(filter-out cf/src/plugin.cpp,$(wildcard cf/src/*.cpp))
 
 # modules/types which are present in other plugins
-CF_CUSTOM = $(DRWAV)
+CF_CUSTOM = $(DRWAV) Mono
 
 # --------------------------------------------------------------
 # Computerscare
@@ -693,6 +693,7 @@ DBIZ_CUSTOM_PER_FILE = LERP MultiFilter Oscillator calcOutput sineOsc subBank
 # DHE-Modules
 
 PLUGIN_FILES += $(filter-out DHE-Modules/src/plugin.cpp,$(wildcard DHE-Modules/src/modules/*/init.cpp))
+DHE_CUSTOM = Buttons
 
 # --------------------------------------------------------------
 # DrumKit
@@ -712,7 +713,7 @@ DRUMKIT_CUSTOM = ADSR Envelope LowFrequencyOscillator
 
 PLUGIN_FILES += $(filter-out EnigmaCurry/src/plugin.cpp,$(wildcard EnigmaCurry/src/*.cpp))
 # modules/types which are present in other plugins
-ENIGMACURRY_CUSTOM = Pulse
+ENIGMACURRY_CUSTOM = Pulse Range
 
 # --------------------------------------------------------------
 # ESeries
@@ -756,6 +757,8 @@ PLUGIN_FILES += $(filter-out GoodSheperd/src/plugin.cpp,$(wildcard GoodSheperd/s
 # GrandeModular
 
 PLUGIN_FILES += $(filter-out GrandeModular/src/plugin.cpp,$(wildcard GrandeModular/src/*.cpp))
+
+GRANDEMODULAR_CUSTOM += Quant
 
 # --------------------------------------------------------------
 # H4N4 Modules
@@ -856,7 +859,7 @@ LILACLOOP_CUSTOM = AudioFile Mode
 PLUGIN_FILES += $(filter-out LittleUtils/src/plugin.cpp,$(wildcard LittleUtils/src/*.cpp))
 
 # modules/types which are present in other plugins
-LITTLEUTILS_CUSTOM = MsDisplayWidget
+LITTLEUTILS_CUSTOM = Button
 
 # --------------------------------------------------------------
 # LomasModules
@@ -930,6 +933,7 @@ PLUGIN_FILES += Mog/src/Nexus.cpp
 PLUGIN_FILES += $(wildcard mscHack/src/*.cpp)
 
 # modules/types which are present in other plugins
+MSCHACK_CUSTOM = PingPong
 MSCHACK_CUSTOM_PER_FILE = MAIN_SYNC_CLOCK FILTER_STRUCT FILTER_PARAM_STRUCT OSC_PARAM_STRUCT PHRASE_CHANGE_STRUCT
 
 # --------------------------------------------------------------
@@ -944,6 +948,7 @@ MSM_CUSTOM = ADSR BlankPanel Delay LFO LowFrequencyOscillator Mult Noise OP VCA 
 # MUS-X
 
 PLUGIN_FILES += $(filter-out MUS-X/src/plugin.cpp,$(wildcard MUS-X/src/*.cpp))
+MUS-X_CUSTOM += Filter
 
 # --------------------------------------------------------------
 # myth-modules
@@ -1042,6 +1047,20 @@ PLUGIN_FILES += $(filter-out repelzen/src/repelzen.cpp,$(wildcard repelzen/src/*
 
 # modules/types which are present in other plugins
 REPELZEN_CUSTOM = Blank Mixer Werner tanh_pade
+
+# --------------------------------------------------------------
+# RJModules
+
+PLUGIN_FILES += $(filter-out RJModules/src/RJModules.cpp \
+	RJModules/src/Drumpler.cpp RJModules/src/Riser.cpp RJModules/src/ThreeXOSC.cpp \
+	RJModules/src/PolySidechain.cpp RJModules/src/LeftHandRightHand.cpp  \
+	RJModules/src/Succulent.cpp RJModules/src/Soundpipe.cpp \
+	RJModules/src/Buttons.cpp \
+	,$(wildcard RJModules/src/*.cpp))
+
+# modules/types which are present in other plugins
+RJMODULES_CUSTOM = $(DRWAV) Noise Button Buttons Mono Octaves Filter Quant DCBlocker PingPong Chord Range
+#RJMODULES_CUSTOM_PER_FILE = DCBlocker
 
 # --------------------------------------------------------------
 # Sapphire
@@ -2738,6 +2757,13 @@ $(BUILD_DIR)/repelzen/%.cpp.o: repelzen/%.cpp
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(REPELZEN_CUSTOM),$(call custom_module_names,$(m),repelzen)) \
 		-DpluginInstance=pluginInstance__repelzen
+
+$(BUILD_DIR)/RJModules/%.cpp.o: RJModules/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(RJMODULES_CUSTOM),$(call custom_module_names,$(m),RJModules)) \
+		-DpluginInstance=pluginInstance__RJModules
 
 $(BUILD_DIR)/Sapphire/%.cpp.o: Sapphire/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"

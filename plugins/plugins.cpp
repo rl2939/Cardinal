@@ -710,6 +710,7 @@ std::string loadBack(int) { return "res/Empty_gray.svg"; }
 /* NOTE too much noise in original include, do this a different way
 // #include "mscHack/src/mscHack.hpp"
 */
+#define modelPingPong modelmscHackPingPong
 extern Model* modelCompressor;
 extern Model* modelSynthDrums;
 extern Model* modelSEQ_6x32x16;
@@ -733,6 +734,7 @@ extern Model* modelLorenz;
 extern Model* modelAlienz;
 extern Model* modelOSC_WaveMorph_3;
 extern Model* modelMaude_221;
+#undef modelPingPong
 
 // MSM
 /* NOTE too much noise in original include, do this a different way
@@ -838,6 +840,98 @@ void addThemeMenuItems(Menu*, ModuleTheme*) {}
 #undef modelMixer
 #undef modelWerner
 #undef tanh_pade
+
+// RJmodules
+/*
+#include "RJModules/src/RJModules.hpp"
+*/
+#define modelNoise modelRJModulesNoise
+#define modelButton modelRJModulesButton
+#define modelButtons modelRJModulesButton 
+#define modelMono modelRJModulesMono
+#define modelOctaves modelRJModulesOctaves
+#define modelFilter modelRJModulesFilter
+#define modelQuant modelRJModulesQuant
+#define modelPingPong modelRJModulesPingPong
+#define modelChord modelRJModulesChord
+#define modelRange modelRJModulesRange
+extern Model* modelSupersaw;
+extern Model* modelTwinLFO;
+extern Model* modelNoise;
+extern Model* modelRangeLFO;
+extern Model* modelBitCrush;
+extern Model* modelWidener;
+extern Model* modelFilterDelay;
+extern Model* modelSidechain;
+extern Model* modelStutter;
+extern Model* modelFilter;
+extern Model* modelFilters;
+extern Model* modelNotch;
+extern Model* modelIntegers;
+extern Model* modelFloats;
+extern Model* modelRandoms;
+extern Model* modelLRMixer;
+extern Model* modelMono;
+extern Model* modelVolumes;
+extern Model* modelPanner;
+extern Model* modelPanners;
+extern Model* modelBPM;
+extern Model* modelButton;
+//extern Model* modelButtons;
+extern Model* modelSplitter;
+extern Model* modelSplitters;
+extern Model* modelDisplays;
+extern Model* modelRange;
+// extern Model* modelRiser;
+extern Model* modelOctaves;
+extern Model* modelBPF;
+extern Model* modelRandomFilter;
+extern Model* modelBuffers;
+extern Model* modelChord;
+extern Model* modelChordSeq;
+extern Model* modelPlayableChord;
+// extern Model* modelThreeXOSC;
+extern Model* modelGlides;
+extern Model* modelMetaKnob;
+extern Model* modelReplayKnob;
+extern Model* modeluQuant;
+extern Model* modelPluck;
+extern Model* modelAcid;
+extern Model* modelEssEff;
+// extern Model* modelDrumpler;
+extern Model* modelKTF;
+extern Model* modelTriggerSwitch;
+extern Model* modelDryWet;
+// extern Model* modelPolySidechain;
+extern Model* modelMutateSeq;
+extern Model* modelNotes;
+extern Model* modelSequential;
+// extern Model* modelSucculent;
+// extern Model* modelSoundpipe;
+extern Model* modelPingPong;
+extern Model* modelBrickwall;
+extern Model* modelSlapback;
+//extern Model* modelLeftHandRightHand;
+extern Model* modelEuclidian;
+extern Model* modelOcto;
+extern Model* modelRJChorus;
+extern Model* modelInstro;
+extern Model* modelGaussian;
+extern Model* modelGlutenFree;
+extern Model* modelMegaDivider;
+extern Model* modelGravityGlide;
+extern Model* modelSubOsc;
+extern Model* modelGuitarNeck;
+#undef modelNoise
+#undef modelButton
+#undef modelButtons
+#undef modelMono
+#undef modelOctaves
+#undef modelFilter
+#undef modelQuant
+#undef modelPingPong
+#undef modelChord
+#undef modelRange
 
 // Sapphire
 #include "Sapphire/src/plugin.hpp"
@@ -989,6 +1083,7 @@ Plugin* pluginInstance__rackwindows;
 Plugin* pluginInstance__RCM;
 Plugin* pluginInstance__RebelTech;
 Plugin* pluginInstance__repelzen;
+Plugin* pluginInstance__RJModules;
 Plugin* pluginInstance__sapphire;
 Plugin* pluginInstance__sonusmodular;
 Plugin* pluginInstance__StarlingVia;
@@ -2845,6 +2940,7 @@ static void initStatic__mscHack()
     const StaticPluginLoader spl(p, "mscHack");
     if (spl.ok())
     {
+#define modelPingPong modelmscHackPingPong
         p->addModel(modelCompressor);
         p->addModel(modelSynthDrums);
         p->addModel(modelSEQ_6x32x16);
@@ -2868,6 +2964,7 @@ static void initStatic__mscHack()
         p->addModel(modelAlienz);
         p->addModel(modelOSC_WaveMorph_3);
         p->addModel(modelMaude_221);
+#undef modelPingPong
     }
 }
 
@@ -3161,6 +3258,132 @@ static void initStatic__repelzen()
 #undef modelBlank
 #undef modelMixer
 #undef modelWerner
+    }
+}
+
+static void initStatic__RJModules()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__RJModules = p;
+
+    const StaticPluginLoader spl(p, "RJModules");
+    if (spl.ok())
+    {
+#define modelNoise modelRJModulesNoise
+#define modelButton modelRJModulesButton
+#define modelButtons modelRJModulesButton 
+#define modelMono modelRJModulesMono
+#define modelOctaves modelRJModulesOctaves
+#define modelFilter modelRJModulesFilter
+#define modelQuant modelRJModulesQuant
+#define modelPingPong modelRJModulesPingPong
+#define modelChord modelRJModulesChord
+#define modelRange modelRJModulesRange
+        // Generators
+        p->addModel(modelSupersaw);
+        p->addModel(modelTwinLFO);
+        p->addModel(modelNoise);
+        p->addModel(modelRangeLFO);
+        p->addModel(modelAcid);
+        p->addModel(modelEssEff);
+        // p->addModel(modelDrumpler);
+        // p->addModel(modelRiser);
+        // p->addModel(modelThreeXOSC);
+        p->addModel(modelOcto);
+        p->addModel(modelInstro);
+        p->addModel(modelGlutenFree);
+
+        // VCA
+        p->addModel(modelPluck);
+
+        // FX
+        p->addModel(modelBitCrush);
+        p->addModel(modelWidener);
+        p->addModel(modelFilterDelay);
+        p->addModel(modelSidechain);
+        p->addModel(modelStutter);
+        p->addModel(modelGlides);
+        // p->addModel(modelPolySidechain);
+        p->addModel(modelPingPong);
+        p->addModel(modelBrickwall);
+        p->addModel(modelSlapback);
+        p->addModel(modelRJChorus);
+        p->addModel(modelSubOsc);
+
+        // Filters
+        p->addModel(modelFilter);
+        p->addModel(modelFilters);
+        p->addModel(modelNotch);
+        p->addModel(modelBPF);
+        p->addModel(modelKTF);
+        p->addModel(modelRandomFilter);
+
+        // Numerical
+        p->addModel(modelIntegers);
+        p->addModel(modelFloats);
+        p->addModel(modelRandoms);
+        p->addModel(modelNotes);
+
+        // Mix
+        p->addModel(modelLRMixer);
+        p->addModel(modelMono);
+        p->addModel(modelVolumes);
+        p->addModel(modelPanner);
+        p->addModel(modelPanners);
+        p->addModel(modelDryWet);
+
+        // Live
+        p->addModel(modelBPM);
+        p->addModel(modelButton);
+        //p->addModel(modelButtons);
+        p->addModel(modelMetaKnob);
+        p->addModel(modelReplayKnob);
+        p->addModel(modelTriggerSwitch);
+        p->addModel(modelGuitarNeck);
+
+        // Util
+        p->addModel(modelSplitter);
+        p->addModel(modelSplitters);
+        p->addModel(modelDisplays);
+        p->addModel(modelRange);
+        p->addModel(modelOctaves);
+        p->addModel(modelBuffers);
+        p->addModel(modelChord);
+        p->addModel(modelPlayableChord);
+        // p->addModel(modelSucculent);
+        // p->addModel(modelLeftHandRightHand);
+        p->addModel(modelGravityGlide);
+        // p->addModel(modelSoundpipe);
+
+        // Sequencer
+        p->addModel(modelChordSeq);
+        p->addModel(modelMutateSeq);
+        p->addModel(modelSequential);
+        p->addModel(modelEuclidian);
+        p->addModel(modelGaussian);
+        p->addModel(modelMegaDivider);
+
+        // Quantizer
+        p->addModel(modeluQuant);
+
+        spl.removeModule("Drumpler");
+        spl.removeModule("Riser");
+        spl.removeModule("ThreeXOSC");
+        spl.removeModule("PolySidechain");
+        spl.removeModule("LeftHandRightHand");
+        spl.removeModule("Buttons");
+        spl.removeModule("Succulent");
+        spl.removeModule("Soundpipe");
+#undef modelNoise
+#undef modelButton
+#undef modelButtons
+#undef modelMono
+#undef modelOctaves
+#undef modelFilter
+#undef modelQuant
+#undef modelPingPong
+#undef modelChord
+#undef modelRange
     }
 }
 
@@ -3607,6 +3830,7 @@ void initStaticPlugins()
     initStatic__RCM();
     initStatic__RebelTech();
     initStatic__repelzen();
+    initStatic__RJModules();
     initStatic__Sapphire();
     initStatic__sonusmodular();
     initStatic__StarlingVia();

@@ -261,3 +261,6 @@
 	path = plugins/admiral
 	url = https://github.com/wapiflapi/admiral.git
 
+[submodule "plugins/RJModules"]
+	path = plugins/RJModules
+	url = https://github.com/Miserlou/RJModules.git
