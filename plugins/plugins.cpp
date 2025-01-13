@@ -526,6 +526,18 @@ extern Model* modelXYToPolar;
 #undef PanelBaseWidget
 #undef InverterWidget
 
+// Holonic Systems
+/* NOTE too much noise in original include, do this a different way */
+#include "HolonicSystems/src/HolonicSystems-Free.hpp"
+
+// extern Model *modelHolonicSource;
+// extern Model *modelSwissCheeseKnife;
+// extern Model *modelGaps;
+// extern Model *modelPantry;
+// extern Model *modelJunctions;
+// extern Model *modelDumbwaiter;
+// extern Model *modelLazySusan;
+
 // ImpromptuModular
 /* NOTE too much noise in original include, do this a different way
 // #include "ImpromptuModular/src/ImpromptuModular.hpp"
@@ -960,6 +972,7 @@ Plugin* pluginInstance__GrandeModular;
 Plugin* pluginInstance__H4N4;
 Plugin* pluginInstance__HamptonHarmonics;
 Plugin* pluginInstance__HetrickCV;
+Plugin* pluginInstance__HolonicSystems;
 extern Plugin* pluginInstance__ImpromptuModular;
 Plugin* pluginInstance__ihtsyn;
 Plugin* pluginInstance__JW;
@@ -2461,6 +2474,26 @@ static void initStatic__HetrickCV()
     }
 }
 
+static void initStatic__HolonicSystems()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__HolonicSystems = p;
+
+    const StaticPluginLoader spl(p, "HolonicSystems");
+    if (spl.ok())
+    {
+        //p->addModel(modelHolonicSource);
+        p->addModel(modelSwissCheeseKnife);
+        p->addModel(modelPantry);
+        p->addModel(modelGaps);
+        p->addModel(modelJunctions);
+        p->addModel(modelDumbwaiter);
+        p->addModel(modelLazySusan);
+
+        spl.removeModule("HolonicSystems-HolonicSource");
+    }
+}
+
 static void initStatic__ImpromptuModular()
 {
     Plugin* const p = new Plugin;
@@ -3578,6 +3611,7 @@ void initStaticPlugins()
     initStatic__H4N4();
     initStatic__HamptonHarmonics();
     initStatic__HetrickCV();
+    initStatic__HolonicSystems();
     initStatic__ImpromptuModular();
     initStatic__ihtsyn();
     initStatic__JW();

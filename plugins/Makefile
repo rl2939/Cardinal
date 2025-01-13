@@ -784,6 +784,12 @@ PLUGIN_FILES += $(wildcard HetrickCV/Gamma/src/scl.cpp)
 HETRICKCV_CUSTOM = ASR BlankPanel FlipFlop MidSide MinMax PanelBaseWidget InverterWidget
 
 # --------------------------------------------------------------
+# Holonic Systems 
+
+PLUGIN_FILES += $(filter-out HolonicSystems/src/HolonicSystems-Free.cpp \
+	HolonicSystems/src/HolonicSystemsHolonicSource.cpp HolonicSystems/src/OSCServer.cpp ,$(wildcard HolonicSystems/src/*.cpp))
+
+# --------------------------------------------------------------
 # ImpromptuModular
 
 PLUGIN_FILES += $(wildcard ImpromptuModular/src/*.cpp)
@@ -2467,6 +2473,13 @@ $(BUILD_DIR)/HetrickCV/%.cpp.o: HetrickCV/%.cpp
 		-DSTDIO_OVERRIDE=HetrickCV \
 		-IHetrickCV/Gamma \
 		-Wno-unused-but-set-variable
+
+$(BUILD_DIR)/HolonicSystems/%.cpp.o: HolonicSystems/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(HOLONICSYSTEMS_CUSTOM),$(call custom_module_names,$(m),HolonicSystems)) \
+		-DpluginInstance=pluginInstance__HolonicSystems
 
 $(BUILD_DIR)/ImpromptuModular/src/Foundr%.cpp.o: ImpromptuModular/src/Foundr%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"

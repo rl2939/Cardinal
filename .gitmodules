@@ -261,3 +261,6 @@
 	path = plugins/admiral
 	url = https://github.com/wapiflapi/admiral.git
 
+[submodule "plugins/HolonicSystems"]
+	path = plugins/HolonicSystems
+	url = https://github.com/hdavid/VCVRack-Holon.ist.git
