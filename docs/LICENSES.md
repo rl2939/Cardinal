@@ -53,6 +53,7 @@ Below follows a list of all code licenses used in Cardinal and linked submodules
 | H4N4 Modules            | GPL-3.0-or-later         | |
 | Hampton Harmonics       | MIT                      | |
 | HetrickCV               | CC0-1.0                  | |
+| Holonic Systems         | CC0-1.0                  | |
 | ihtsyn                  | GPL-3.0-or-later         | |
 | Impromptu               | GPL-3.0-or-later         | |
 | JW-Modules              | BSD-3-Clause             | |
@@ -196,6 +197,7 @@ Below is a list of artwork licenses from plugins
 | HamptonHarmonics/*                      | MIT              | No artwork specific license provided |
 | HamptonHarmonics/PixelOperator.ttf      | CC0-1.0          | |
 | HetrickCV/*                             | CC0-1.0          | |
+| HolonicSystems                          | CC0-1.0          | No artwork specific license provided |
 | ihtsyn/*                                | GPL-3.0-or-later | [Same license as source code](https://github.com/nysthi/nysthi/issues/379#issuecomment-1027873902) |
 | ImpromptuModular/*                      | CC-BY-NC-ND-4.0  | |
 | ImpromptuModular/res/comp/complib/*     | CC-BY-NC-4.0     | |

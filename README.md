@@ -159,6 +159,7 @@ At the moment the following 3rd-party modules are provided:
 - [H4N4 Modules](https://github.com/hannakoppelaar/h4n4-modules)
 - [Hampton Harmonics](https://gitlab.com/hampton-harmonics/hampton-harmonics-modules)
 - [HetrickCV](https://github.com/mhetrick/hetrickcv)
+- [Holonic Systems](https://github.com/hdavid/VCVRack-Holon.ist)
 - [ihtsyn](https://github.com/nysthi/ihtsyn)
 - [Impromptu](https://github.com/MarcBoule/ImpromptuModular)
 - [JW-Modules](https://github.com/jeremywen/JW-Modules)
