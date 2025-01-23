@@ -527,16 +527,7 @@ extern Model* modelXYToPolar;
 #undef InverterWidget
 
 // Holonic Systems
-/* NOTE too much noise in original include, do this a different way */
 #include "HolonicSystems/src/HolonicSystems-Free.hpp"
-
-// extern Model *modelHolonicSource;
-// extern Model *modelSwissCheeseKnife;
-// extern Model *modelGaps;
-// extern Model *modelPantry;
-// extern Model *modelJunctions;
-// extern Model *modelDumbwaiter;
-// extern Model *modelLazySusan;
 
 // ImpromptuModular
 /* NOTE too much noise in original include, do this a different way
@@ -2482,7 +2473,6 @@ static void initStatic__HolonicSystems()
     const StaticPluginLoader spl(p, "HolonicSystems");
     if (spl.ok())
     {
-        //p->addModel(modelHolonicSource);
         p->addModel(modelSwissCheeseKnife);
         p->addModel(modelPantry);
         p->addModel(modelGaps);
@@ -2490,6 +2480,7 @@ static void initStatic__HolonicSystems()
         p->addModel(modelDumbwaiter);
         p->addModel(modelLazySusan);
 
+        // NOTE disabled in Cardinal due to MIDI usage
         spl.removeModule("HolonicSystems-HolonicSource");
     }
 }

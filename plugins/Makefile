@@ -787,7 +787,9 @@ HETRICKCV_CUSTOM = ASR BlankPanel FlipFlop MidSide MinMax PanelBaseWidget Invert
 # Holonic Systems 
 
 PLUGIN_FILES += $(filter-out HolonicSystems/src/HolonicSystems-Free.cpp \
-	HolonicSystems/src/HolonicSystemsHolonicSource.cpp HolonicSystems/src/OSCServer.cpp ,$(wildcard HolonicSystems/src/*.cpp))
+	HolonicSystems/src/HolonicSystemsHolonicSource.cpp HolonicSystems/src/OSCServer.cpp \
+	HolonicSystems/src/Ports.cpp HolonicSystems/src/MdnsServer.cpp \
+	HolonicSystems/src/tinyosc.c ,$(wildcard HolonicSystems/src/*.cpp))
 
 # --------------------------------------------------------------
 # ImpromptuModular
