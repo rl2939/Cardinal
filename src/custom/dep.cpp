@@ -56,6 +56,7 @@ enum DarkMode {
     kModeDHE,
     kModeDrumKit,
     kModeESeries,
+    kModeHolonicSystems,
     kModeLilacLoop,
     kModeLittleUtils,
     kModeKocmoc,
@@ -275,6 +276,13 @@ static const struct {
     { kModeESeries,"/ESeries/res/E340.svg", {}, -1 },
     // GPL3.0-or-later
     { kModeLilacLoop, "/LilacLoop/res/Looper.svg", {}, -1 },
+    // CC0-1.0
+    { kModeHolonicSystems, "/HolonicSystems/res/HolonicSystems-Dumbwaiter.svg", {}, -1 },
+    { kModeHolonicSystems, "/HolonicSystems/res/HolonicSystems-Gaps.svg", {}, -1  },
+    { kModeHolonicSystems, "/HolonicSystems/res/HolonicSystems-Junctions.svg", {}, -1  },
+    { kModeHolonicSystems, "/HolonicSystems/res/HolonicSystems-LazySusan.svg" , {}, -1 },
+    { kModeHolonicSystems, "/HolonicSystems/res/HolonicSystems-Pantry.svg", {}, -1  },
+    { kModeHolonicSystems, "/HolonicSystems/res/HolonicSystems-SwissCheeseKnife.svg" , {}, -1 },
     // EUPL-1.2
     { kModeLittleUtils, "/LittleUtils/res/Bias_Semitone.svg", {}, -1 },
     { kModeLittleUtils, "/LittleUtils/res/ButtonModule.svg", {}, -1 },
