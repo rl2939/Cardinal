@@ -718,6 +718,9 @@ std::string loadBack(int) { return "res/Empty_gray.svg"; }
 // Mog
 #include "Mog/src/plugin.hpp"
 
+// Moffenzeef
+#include "Moffenzeef/src/plugin.hpp"
+
 // mscHack
 /* NOTE too much noise in original include, do this a different way
 // #include "mscHack/src/mscHack.hpp"
@@ -996,6 +999,7 @@ Plugin* pluginInstance__Meander;
 extern Plugin* pluginInstance__MindMeld;
 Plugin* pluginInstance__ML;
 Plugin* pluginInstance__MockbaModular;
+Plugin* pluginInstance__Moffenzeef;
 Plugin* pluginInstance__Mog;
 extern Plugin* pluginInstance__mscHack;
 Plugin* pluginInstance__MSM;
@@ -2872,6 +2876,31 @@ static void initStatic__MockbaModular()
     }
 }
 
+static void initStatic__Moffenzeef()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__Moffenzeef = p;
+
+    const StaticPluginLoader spl(p, "Moffenzeef");
+    if (spl.ok())
+    {
+        p->addModel(modelBadIdea9);
+        p->addModel(modelBadIdea1800);
+        p->addModel(modelBobcat);
+        p->addModel(modelBusMult);
+        p->addModel(modelCount);
+        p->addModel(modelDeviant);
+        p->addModel(modelDialUp);
+        p->addModel(modelGMO);
+        p->addModel(modelKriket);
+        p->addModel(modelMito);
+        p->addModel(modelMoffenmix);
+        p->addModel(modelMongrel);
+        p->addModel(modelMuskrat);
+        p->addModel(modelSimplify);
+    }
+}
+
 static void initStatic__Mog()
 {
     Plugin* const p = new Plugin;
@@ -3744,6 +3773,7 @@ void initStaticPlugins()
     initStatic__MindMeld();
     initStatic__ML();
     initStatic__MockbaModular();
+    initStatic__Moffenzeef();
     initStatic__Mog();
     initStatic__mscHack();
     initStatic__MSM();
