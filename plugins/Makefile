@@ -956,6 +956,11 @@ PLUGIN_FILES += $(filter-out myth-modules/src/plugin.cpp,$(wildcard myth-modules
 PLUGIN_FILES += $(filter-out nonlinearcircuits/src/NLC.cpp,$(wildcard nonlinearcircuits/src/*.cpp))
 
 # --------------------------------------------------------------
+# Ondas
+
+PLUGIN_FILES += $(filter-out ondas/src/plugin.cpp,$(wildcard ondas/src/*.cpp))
+
+# --------------------------------------------------------------
 # Orbits
 
 PLUGIN_FILES += $(filter-out Orbits/src/plugin.cpp,$(wildcard Orbits/src/*.cpp))
@@ -2654,6 +2659,13 @@ $(BUILD_DIR)/nonlinearcircuits/%.cpp.o: nonlinearcircuits/%.cpp
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(NONLINEARCIRCUITS_CUSTOM),$(call custom_module_names,$(m),nonlinearcircuits)) \
 		-DpluginInstance=pluginInstance__nonlinearcircuits
+
+$(BUILD_DIR)/ondas/%.cpp.o: ondas/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(ONDAS_CUSTOM),$(call custom_module_names,$(m),ondas)) \
+		-DpluginInstance=pluginInstance__ondas
 
 $(BUILD_DIR)/Orbits/%.cpp.o: Orbits/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"

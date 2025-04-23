@@ -61,6 +61,7 @@ enum DarkMode {
     kModeKocmoc,
     kModeMyth,
     kModeNonlinearcircuits,
+    kModeOndas,
     kModeParableInstruments,
     kModePdArray,
     kModePathSet,
@@ -315,6 +316,12 @@ static const struct {
     { kModeNonlinearcircuits, "/nonlinearcircuits/res/SlothInertia.svg", {}, -1 },
     { kModeNonlinearcircuits, "/nonlinearcircuits/res/SlothTorpor.svg", {}, -1 },
     { kModeNonlinearcircuits, "/nonlinearcircuits/res/TripleSloth.svg", {}, -1 },
+    // CC-BY-NC-SA-4.0 
+    // { kModeOndas, "/ondas/res/BaBum.svg", {}, -1 },
+    // { kModeOndas, "/ondas/res/Distroi.svg", {}, -1 },
+    // { kModeOndas, "/ondas/res/Klok.svg", {}, -1 },
+    // { kModeOndas, "/ondas/res/Scener.svg", {}, -1 },
+    // { kModeOndas, "/ondas/res/Secu.svg", {}, -1 },
     // GPL-3.0-or-later
     { kModePathSet, "/PathSet/res/AstroVibe.svg", {}, -1 },
     { kModePathSet, "/PathSet/res/GlassPane.svg", {}, -1 },

@@ -789,6 +789,9 @@ extern Model* modelBlankPanel;
 // Nonlinear Circuits
 #include "nonlinearcircuits/src/NLC.hpp"
 
+// Ondas
+#include "ondas/src/plugin.hpp"
+
 // Orbits
 #include "Orbits/src/plugin.hpp"
 
@@ -983,6 +986,7 @@ Plugin* pluginInstance__MSM;
 Plugin* pluginInstance__MUS_X;
 Plugin* pluginInstance__myth_modules;
 Plugin* pluginInstance__nonlinearcircuits;
+Plugin* pluginInstance__ondas; 
 Plugin* pluginInstance__Orbits;
 Plugin* pluginInstance__ParableInstruments;
 Plugin* pluginInstance__PathSet;
@@ -2999,6 +3003,22 @@ static void initStatic__nonlinearcircuits()
     }
 }
 
+static void initStatic__ondas()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__ondas = p;
+
+    const StaticPluginLoader spl(p, "ondas");
+    if (spl.ok())
+    {
+        p->addModel(modelKlok);
+        p->addModel(modelSecu);
+        p->addModel(modelBaBum);
+        p->addModel(modelScener);
+        p->addModel(modelDistroi);
+    }
+}
+
 static void initStatic__Orbits()
 {
     Plugin* const p = new Plugin;
@@ -3611,6 +3631,7 @@ void initStaticPlugins()
     initStatic__MUS_X();
     initStatic__myth_modules();
     initStatic__nonlinearcircuits();
+    initStatic__ondas(); 
     initStatic__Orbits();
     initStatic__ParableInstruments();
     initStatic__PathSet();

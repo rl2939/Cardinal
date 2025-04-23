@@ -72,6 +72,7 @@ Below follows a list of all code licenses used in Cardinal and linked submodules
 | MUS-X                   | GPL-3.0-or-later         | |
 | Myth                    | GPL-3.0-or-later         | |
 | Nonlinear Circuits      | CC0-1.0                  | |
+| Ondas                   | GPL-3.0-or-later         | |
 | Orbits                  | GPL-3.0-or-later         | |
 | Parable Instruments     | GPL-3.0-or-later         | |
 | Path Set                | GPL-3.0-or-later         | |
@@ -233,6 +234,7 @@ Below is a list of artwork licenses from plugins
 | Myth/*                                  | GPL-3.0-or-later | No artwork specific license provided |
 | nonlinearcircuits/*                     | CC0-1.0          | No artwork specific license provided |
 | nonlinearcircuits/Audiowide-Regular.ttf | OFL-1.1-RFN      | |
+| Ondas/*                                 | CC-BY-NC-SA-4.0  | |
 | Orbits/*                                | CC-BY-NC-ND-4.0  | |
 | Orbits/fonts/ShareTechMono-Regular.ttf  | OFL-1.1-RFN      | |
 | ParableInstruments/*                    | Custom           | Copyright © Alex Brandt, [used and distributed with permission](https://github.com/adbrant/ArableInstruments/issues/21) |

@@ -261,3 +261,6 @@
 	path = plugins/admiral
 	url = https://github.com/wapiflapi/admiral.git
 
+[submodule "plugins/ondas"]
+	path = plugins/ondas
+	url = https://github.com/srsergiorodriguez/ondas
