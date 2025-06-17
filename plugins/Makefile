@@ -1169,6 +1169,11 @@ MINIPLUGIN_FILES += surgext/src/XTStyle.cpp
 MINIPLUGIN_FILES += surgext-helper/surgext-helper.cpp
 
 # --------------------------------------------------------------
+# TeknoLogical
+
+PLUGIN_FILES += $(filter-out TeknoLogical/src/plugin.cpp,$(wildcard TeknoLogical/src/*.cpp))
+
+# --------------------------------------------------------------
 # unless_modules
 
 PLUGIN_FILES += $(filter-out unless_modules/src/unless.cpp,$(wildcard unless_modules/src/*.cpp))
@@ -2800,6 +2805,13 @@ $(BUILD_DIR)/surgext%.cpp.o: surgext%.cpp
 	$(SILENT)$(CXX) $< $(SURGEXT_FLAGS) -c -o $@ \
 		$(foreach m,$(SURGEXT_CUSTOM),$(call custom_module_names,$(m),surgext)) \
 		-DpluginInstance=pluginInstance__surgext
+
+$(BUILD_DIR)/TeknoLogical%.cpp.o: TeknoLogical%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(TEKNOLOGICAL_FLAGS) -c -o $@ \
+		$(foreach m,$(TEKNOLOGICAL_CUSTOM),$(call custom_module_names,$(m),TeknoLogical)) \
+		-DpluginInstance=pluginInstance__TeknoLogical
 
 $(BUILD_DIR)/unless_modules/%.cpp.o: unless_modules/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"

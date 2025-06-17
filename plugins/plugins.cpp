@@ -888,6 +888,9 @@ void StoermelderSettings::readFromJson() {}
 void surgext_rack_initialize();
 void surgext_rack_update_theme();
 
+// TeknoLogical
+#include "TeknoLogical/src/plugin.hpp"
+
 // unless_modules
 #include "unless_modules/src/unless.hpp"
 
@@ -1018,6 +1021,7 @@ Plugin* pluginInstance__StarlingVia;
 Plugin* pluginInstance__stocaudio;
 extern Plugin* pluginInstance__stoermelder_p1;
 Plugin* pluginInstance__surgext;
+Plugin* pluginInstance__TeknoLogical;
 Plugin* pluginInstance__unless_modules;
 Plugin* pluginInstance__ValleyAudio;
 Plugin* pluginInstance__Venom;
@@ -3443,6 +3447,19 @@ static void initStatic__surgext()
     }
 }
 
+static void initStatic__TeknoLogical()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__TeknoLogical = p;
+
+    const StaticPluginLoader spl(p, "TeknoLogical");
+    if (spl.ok())
+    {
+        p->addModel(modelTL_Drum5);
+        p->addModel(modelTL_Seq4);
+    }
+}
+
 static void initStatic__unless_modules()
 {
     Plugin* const p = new Plugin;
@@ -3758,6 +3775,7 @@ void initStaticPlugins()
     initStatic__stocaudio();
     initStatic__stoermelder_p1();
     initStatic__surgext();
+    initStatic__TeknoLogical();
     initStatic__unless_modules();
     initStatic__ValleyAudio();
     initStatic__Venom();
