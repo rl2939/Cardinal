@@ -20,6 +20,7 @@ Below follows a list of all code licenses used in Cardinal and linked submodules
 | alef's bits             | GPL-3.0-or-later         | |
 | AlgoritmArte            | GPL-3.0-or-later         | |
 | Amalgamated Harmonics   | BSD-3-Clause             | |
+| AmbushedCat             | GPL-3.0-or-later         | |
 | Animated Circuits       | GPL-3.0-or-later         | |
 | Arable Instruments      | GPL-3.0-or-later         | |
 | Aria Salvatrice         | GPL-3.0-or-later         | |
@@ -122,6 +123,7 @@ Below is a list of artwork licenses from plugins
 | AmalgamatedHarmonics/*                  | BSD-3-Clause     | No artwork specific license provided |
 | AmalgamatedHarmonics/DSEG*.ttf          | OFL-1.1-RFN      | |
 | AmalgamatedHarmonics/Roboto*.ttf        | Apache-2.0       | |
+| AmbushedCat/*                           | GPL-3.0-or-later | | 
 | AnimatedCircuits/*                      | CC-BY-NC-SA-4.0  | |
 | ArableInstruments/*                     | Custom           | Copyright © Alex Brandt, [used and distributed with permission](https://github.com/adbrant/ArableInstruments/issues/21) |
 | AriaModules/*                           | CC-BY-SA-4.0     | |

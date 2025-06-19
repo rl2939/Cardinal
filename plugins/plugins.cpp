@@ -49,6 +49,11 @@ extern Model* modelDivisions;
 // AmalgamatedHarmonics
 #include "AmalgamatedHarmonics/src/AH.hpp"
 
+// AmbushedCat
+#define modelTape modelAmbushedCatTape
+#include "AmbushedCat/src/plugin.hpp"
+#undef modelTape
+
 // AnimatedCircuits
 #include "AnimatedCircuits/src/plugin.hpp"
 
@@ -824,7 +829,9 @@ extern Model* modelBlankPanel;
 #include "Prism/src/plugin.hpp"
 
 // rackwindows
+#define modelTape modelrackwindowsTape
 #include "rackwindows/src/plugin.hpp"
+#undef modelTape
 
 // RCM
 #include "rcm-modules/src/plugin.hpp"
@@ -938,6 +945,7 @@ Plugin* pluginInstance__admiral;
 Plugin* pluginInstance__alefsbits;
 Plugin* pluginInstance__Algoritmarte;
 Plugin* pluginInstance__AmalgamatedHarmonics;
+Plugin* pluginInstance__AmbushedCat;
 Plugin* pluginInstance__ArableInstruments;
 Plugin* pluginInstance__AnimatedCircuits;
 Plugin* pluginInstance__Aria;
@@ -1367,6 +1375,23 @@ static void initStatic__AmalgamatedHarmonics()
         p->addModel(modelScaleQuantizer);
         p->addModel(modelArpeggiator2);
         p->addModel(modelProgress);
+    }
+}
+
+static void initStatic__AmbushedCat()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__AmbushedCat = p;
+
+    const StaticPluginLoader spl(p, "AmbushedCat");
+    if (spl.ok())
+    {
+#define modelTape modelAmbushedCatTape
+    	p->addModel(modelTuringMaschine);
+    	p->addModel(modelTuringGateExpander);
+    	p->addModel(modelTuringVoltsExpander);
+    	p->addModel(modelTape);
+#undef modelTape
     }
 }
 
@@ -3121,6 +3146,7 @@ static void initStatic__rackwindows()
     const StaticPluginLoader spl(p, "rackwindows");
     if (spl.ok())
     {
+#define modelTape modelrackwindowsTape
         // p->addModel(modelAcceleration);
         p->addModel(modelBitshiftgain);
         p->addModel(modelCapacitor);
@@ -3140,6 +3166,7 @@ static void initStatic__rackwindows()
         p->addModel(modelTape);
         p->addModel(modelTremolo);
         p->addModel(modelVibrato);
+#undef modelTape
     }
 }
 
@@ -3591,6 +3618,7 @@ void initStaticPlugins()
     initStatic__alefsbits();
     initStatic__Algoritmarte();
     initStatic__AmalgamatedHarmonics();
+    initStatic__AmbushedCat();
     initStatic__AnimatedCircuits();
     initStatic__ArableInstruments();
     initStatic__Aria();

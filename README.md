@@ -126,6 +126,7 @@ At the moment the following 3rd-party modules are provided:
 - [alef's bits](https://github.com/alefnull/alefsbits)
 - [AlgoritmArte](https://github.com/algoritmarte/AlgoritmarteVCVPlugin)
 - [Amalgamated Harmonics](https://github.com/jhoar/AmalgamatedHarmonics)
+- [AmbushedCat](https://github.com/LegitCodeRed/AmbushedCat)
 - [Animated Circuits](https://github.com/AnimatedCircuits/RackModules)
 - [Arable Instruments](https://github.com/adbrant/ArableInstruments)
 - [Aria Salvatrice](https://aria.dog/modules/)

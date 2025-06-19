@@ -361,6 +361,14 @@ AMALGAMATEDHARMONICS_CUSTOM = BasePinkNoiseGenerator EvenVCO LowFrequencyOscilla
 AMALGAMATEDHARMONICS_CUSTOM += bogaudio
 
 # --------------------------------------------------------------
+# AmbushedCat
+
+PLUGIN_FILES += $(filter-out AmbushedCat/src/plugin.cpp,$(wildcard AmbushedCat/src/*.cpp))
+PLUGIN_FILES += $(wildcard AmbushedCat/src/dsp/*.cpp)
+
+AMBUSHEDCAT_CUSTOM = Tape $(DRWAV)
+
+# --------------------------------------------------------------
 # AnimatedCircuits
 
 PLUGIN_FILES += $(wildcard AnimatedCircuits/src/Folding/*.cpp)
@@ -1027,6 +1035,8 @@ PRISM_CUSTOM = bogaudio Scale
 # rackwindows
 
 PLUGIN_FILES += $(filter-out rackwindows/src/plugin.cpp,$(wildcard rackwindows/src/*.cpp))
+
+RACKWINDOWS_CUSTOM = Tape
 
 # --------------------------------------------------------------
 # RCM
@@ -2178,6 +2188,13 @@ $(BUILD_DIR)/AmalgamatedHarmonics/%.cpp.o: AmalgamatedHarmonics/%.cpp
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(AMALGAMATEDHARMONICS_CUSTOM),$(call custom_module_names,$(m),AmalgamatedHarmonics)) \
 		-DpluginInstance=pluginInstance__AmalgamatedHarmonics
+
+$(BUILD_DIR)/AmbushedCat/%.cpp.o: AmbushedCat/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(AMBUSHEDCAT_CUSTOM),$(call custom_module_names,$(m),AmbushedCat)) \
+		-DpluginInstance=pluginInstance__AmbushedCat
 
 $(BUILD_DIR)/AnimatedCircuits/%.cpp.o: AnimatedCircuits/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"

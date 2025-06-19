@@ -48,6 +48,7 @@ enum DarkMode {
     kModeAaronStatic,
     kModeAlefsbits,
     kModeAlgoritmarte,
+    kmodeAmbushedCat,
     kModeArableInstruments,
     kModeAudibleInstruments,
     kModeBidoo,
@@ -106,6 +107,11 @@ static const struct {
     { kModeAlgoritmarte, "/Algoritmarte/res/MusiMath.svg", {}, -1 },
     { kModeAlgoritmarte, "/Algoritmarte/res/Planetz.svg", {}, -1 },
     { kModeAlgoritmarte, "/Algoritmarte/res/Zefiro.svg", {}, -1 },
+    // AmbushedCat
+    { kmodeAmbushedCat, "/AmbushedCat/res/Tape.svg", {}, -1},
+    { kmodeAmbushedCat, "/AmbushedCat/res/TuringGateExpander.svg", {}, -1},
+    { kmodeAmbushedCat, "/AmbushedCat/res/TuringMaschine.svg", {}, -1},
+    { kmodeAmbushedCat, "/AmbushedCat/res/TuringVoltsExpander.svg", {}, -1},
     // Custom, runtime dark mode used with permission
     { kModeAudibleInstruments, "/AudibleInstruments/res/Blinds.svg", {}, -1 },
     { kModeAudibleInstruments, "/AudibleInstruments/res/Braids.svg", {}, -1 },

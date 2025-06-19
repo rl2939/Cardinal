@@ -263,4 +263,6 @@
 [submodule "plugins/eightfold"]
 	path = plugins/eightfold
 	url = https://github.com/scanner-darkly/eightfold.git
-
+[submodule "plugins/AmbushedCat"]
+	path = plugins/AmbushedCat
+	url = https://github.com/LegitCodeRed/AmbushedCat.git
