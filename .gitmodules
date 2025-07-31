@@ -265,4 +265,4 @@
 	url = https://github.com/scanner-darkly/eightfold.git
 [submodule "plugins/dbRackModules"]
 	path = plugins/dbRackModules
-	url = https://github.com/docb/dbRackModules.git
+	url = https://github.com/rl2939/dbRackModules/tree/memory-issues
