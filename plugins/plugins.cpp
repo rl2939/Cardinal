@@ -147,12 +147,12 @@ extern Model* modelChord;
 #define modelADSR modelBefacoADSR
 #define modelMixer modelBefacoMixer
 #define modelBurst modelBefacoBurst
-#define modelBypass modelBefacoBypass
+//#define modelBypass modelBefacoBypass
 #include "Befaco/src/plugin.hpp"
 #undef modelADSR
 #undef modelMixer
 #undef modelBurst
-#undef modelBypass
+//#undef modelBypass
 
 // Bidoo
 #include "Bidoo/src/plugin.hpp"
@@ -883,11 +883,13 @@ void surgext_rack_update_theme();
 #define modelLogic modelVenomLogic
 #define YellowRedLight VenomYellowRedLight
 #define DigitalDisplay VenomDigitalDisplay
+#define modelSlew modelVenomSlew
 #include "Venom/src/plugin.hpp"
 #undef DigitalDisplay
 #undef YellowRedLight
 #undef modelBypass
 #undef modelLogic
+#undef modelSlew
 
 // TODO: Figure out a a better way to define these
 int getDefaultTheme(){ return 0; }
@@ -1624,7 +1626,7 @@ static void initStatic__Befaco()
 #define modelADSR modelBefacoADSR
 #define modelMixer modelBefacoMixer
 #define modelBurst modelBefacoBurst
-#define modelBypass modelBefacoBypass
+//#define modelBypass modelBefacoBypass
         p->addModel(modelEvenVCO);
         p->addModel(modelRampage);
         p->addModel(modelABC);
@@ -1654,7 +1656,7 @@ static void initStatic__Befaco()
 #undef modelADSR
 #undef modelMixer
 #undef modelBurst
-#undef modelBypass
+//#undef modelBypass
 
         // NOTE disabled in Cardinal due to MIDI usage
         spl.removeModule("MidiThingV2");
@@ -3446,6 +3448,8 @@ static void initStatic__Venom()
     {
 #define modelBypass modelVenomBypass
 #define modelLogic modelVenomLogic
+#define modelSlew modelVenomSlew
+        p->addModel(modelAD_ASR);
         p->addModel(modelAuxClone);
         p->addModel(modelBayInput);
         p->addModel(modelBayNorm);
@@ -3458,6 +3462,8 @@ static void initStatic__Venom()
         p->addModel(modelBlocker);
         p->addModel(modelBypass);
         p->addModel(modelCloneMerge);
+        p->addModel(modelCompare2);
+        p->addModel(modelCrossFade3D);
         p->addModel(modelHQ);
         p->addModel(modelKnob5);
         p->addModel(modelLinearBeats);
@@ -3478,6 +3484,7 @@ static void initStatic__Venom()
         p->addModel(modelOscillator);
         p->addModel(modelNORS_IQ);
         p->addModel(modelNORSIQChord2Scale);
+        p->addModel(modelPan3D);
         p->addModel(modelPolyClone);
         p->addModel(modelPolyFade);
         p->addModel(modelPolyOffset);
@@ -3491,19 +3498,25 @@ static void initStatic__Venom()
         p->addModel(modelReformation);
         p->addModel(modelRhythmExplorer);
         p->addModel(modelShapedVCA);
+        p->addModel(modelSlew);
+        p->addModel(modelSphereToXYZ);
         p->addModel(modelThru);
         p->addModel(modelVCAMix4);
         p->addModel(modelVCAMix4Stereo);
         p->addModel(modelVCOUnit);
         p->addModel(modelVenomBlank);
         p->addModel(modelWaveFolder);
+        p->addModel(modelWaveMangler);
+        p->addModel(modelWaveMultiplier);
         p->addModel(modelWidgetMenuExtender);
         p->addModel(modelWinComp);
-
+        p->addModel(modelXM_OP);
+        
         //GLFW errors
         spl.removeModule("MousePad");
 #undef modelBypass
 #undef modelLogic
+#undef modelSlew
     }
 }
 
