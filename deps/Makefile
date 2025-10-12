@@ -57,6 +57,7 @@ SPACE +=
 CMAKE  = cmake
 CMAKE += -DCMAKE_INSTALL_LIBDIR=lib
 CMAKE += -DCMAKE_INSTALL_PREFIX='$(RACK_DEP_PATH)'
+CMAKE += -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 CMAKE += -DBUILD_SHARED_LIBS=OFF
 
 # make sure debug/release matches
@@ -165,7 +166,7 @@ ifeq ($(shell uname -s),Darwin)
 ifeq ($(CIBUILD),true)
 DEP_MAKE += SHA256SUM="shasum5.30 -a 256"
 else
-DEP_MAKE += SHA256SUM="shasum5.30 -a 256"
+DEP_MAKE += SHA256SUM="shasum5.34 -a 256"
 endif
 endif
 
