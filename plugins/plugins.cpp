@@ -901,6 +901,7 @@ void surgext_rack_update_theme();
 #define DigitalDisplay VenomDigitalDisplay
 #define modelMix4 modelVenomMix4
 #define modelSlew modelVenomSlew
+#define modelOscillator modelVenomOscillator
 #include "Venom/src/plugin.hpp"
 #undef DigitalDisplay
 #undef YellowRedLight
@@ -908,6 +909,7 @@ void surgext_rack_update_theme();
 #undef modelLogic
 #undef modelMix4
 #undef modelSlew
+#undef modelOscillator
 
 // TODO: Figure out a a better way to define these
 int getDefaultTheme(){ return 0; }
@@ -3516,6 +3518,7 @@ static void initStatic__Venom()
 #define modelLogic modelVenomLogic
 #define modelSlew modelVenomSlew
 #define modelMix4 modelVenomMix4
+#define modelOscillator modelVenomOscillator
         p->addModel(modelAD_ASR);
         p->addModel(modelAuxClone);
         p->addModel(modelBayInput);
@@ -3585,6 +3588,7 @@ static void initStatic__Venom()
 #undef modelLogic
 #undef modelSlew
 #undef modelMix4
+#undef modelOscillator
     }
 }
 
