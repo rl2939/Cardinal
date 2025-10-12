@@ -205,7 +205,6 @@ extern Model* modelBlank;
 #define modelVCA modelBogaudioVCA
 #define modelVCF modelBogaudioVCF
 #define modelVCO modelBogaudioVCO
-#define modelMix4 modelBogaudioMix4
 extern Model* modelVCO;
 extern Model* modelLVCO;
 extern Model* modelSine;
@@ -336,7 +335,6 @@ extern Model* modelTestVCF;
 #undef modelVCA
 #undef modelVCF
 #undef modelVCO
-#undef modelMix4
 
 // CatroModulo
 #include "CatroModulo/src/CatroModulo.hpp"
@@ -901,12 +899,14 @@ void surgext_rack_update_theme();
 #define modelLogic modelVenomLogic
 #define YellowRedLight VenomYellowRedLight
 #define DigitalDisplay VenomDigitalDisplay
+#define modelMix4 modelVenomMix4
 #define modelSlew modelVenomSlew
 #include "Venom/src/plugin.hpp"
 #undef DigitalDisplay
 #undef YellowRedLight
 #undef modelBypass
 #undef modelLogic
+#undef modelMix4
 #undef modelSlew
 
 // TODO: Figure out a a better way to define these
@@ -1817,7 +1817,6 @@ static void initStatic__BogaudioModules()
 #define modelVCA modelBogaudioVCA
 #define modelVCF modelBogaudioVCF
 #define modelVCO modelBogaudioVCO
-#define modelMix4 modelBogaudioMix4
         p->addModel(modelVCO);
         p->addModel(modelLVCO);
         p->addModel(modelSine);
@@ -1948,7 +1947,6 @@ static void initStatic__BogaudioModules()
 #undef modelVCA
 #undef modelVCF
 #undef modelVCO
-#undef modelMix4
     }
 }
 
@@ -3517,6 +3515,7 @@ static void initStatic__Venom()
 #define modelBypass modelVenomBypass
 #define modelLogic modelVenomLogic
 #define modelSlew modelVenomSlew
+#define modelMix4 modelVenomMix4
         p->addModel(modelAD_ASR);
         p->addModel(modelAuxClone);
         p->addModel(modelBayInput);
@@ -3585,6 +3584,7 @@ static void initStatic__Venom()
 #undef modelBypass
 #undef modelLogic
 #undef modelSlew
+#undef modelMix4
     }
 }
 
