@@ -147,12 +147,10 @@ extern Model* modelChord;
 #define modelADSR modelBefacoADSR
 #define modelMixer modelBefacoMixer
 #define modelBurst modelBefacoBurst
-//#define modelBypass modelBefacoBypass
 #include "Befaco/src/plugin.hpp"
 #undef modelADSR
 #undef modelMixer
 #undef modelBurst
-//#undef modelBypass
 
 // Bidoo
 #include "Bidoo/src/plugin.hpp"
@@ -1626,7 +1624,6 @@ static void initStatic__Befaco()
 #define modelADSR modelBefacoADSR
 #define modelMixer modelBefacoMixer
 #define modelBurst modelBefacoBurst
-//#define modelBypass modelBefacoBypass
         p->addModel(modelEvenVCO);
         p->addModel(modelRampage);
         p->addModel(modelABC);
@@ -1656,7 +1653,6 @@ static void initStatic__Befaco()
 #undef modelADSR
 #undef modelMixer
 #undef modelBurst
-//#undef modelBypass
 
         // NOTE disabled in Cardinal due to MIDI usage
         spl.removeModule("MidiThingV2");

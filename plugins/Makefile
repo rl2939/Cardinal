@@ -633,7 +633,7 @@ MINIPLUGIN_FILES += BogaudioModules/src/dsp/filters/multimode.cpp
 MINIPLUGIN_FILES += BogaudioModules/src/dsp/filters/resample.cpp
 
 # modules/types which are present in other plugins
-BOGAUDIO_CUSTOM = ADSR BlueNoiseGenerator LFO Noise VCA VCO VCF Mix4
+BOGAUDIO_CUSTOM = ADSR BlueNoiseGenerator LFO Noise VCA VCO VCF
 BOGAUDIO_CUSTOM_PER_FILE = ARQuantity AttackMenuItem ReleaseMenuItem
 
 # --------------------------------------------------------------
@@ -1315,7 +1315,7 @@ VALLEYAUDIO_CUSTOM_PER_FILE = TempoKnob
 PLUGIN_FILES += $(filter-out Venom/src/plugin.cpp Venom/src/MousePad.cpp,$(wildcard Venom/src/*.cpp))
 # PLUGIN_FILES += $(wildcard Venom/src/*.cpp)
 
-VENOM_CUSTOM = Bypass Logic DigitalDisplay YellowRedLight Slew
+VENOM_CUSTOM = Bypass Logic DigitalDisplay YellowRedLight Slew Mix4
 
 # --------------------------------------------------------------
 # Voxglitch
