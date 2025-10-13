@@ -1315,7 +1315,7 @@ VALLEYAUDIO_CUSTOM_PER_FILE = TempoKnob
 PLUGIN_FILES += $(filter-out Venom/src/plugin.cpp Venom/src/MousePad.cpp,$(wildcard Venom/src/*.cpp))
 # PLUGIN_FILES += $(wildcard Venom/src/*.cpp)
 
-VENOM_CUSTOM = Bypass Logic DigitalDisplay YellowRedLight Slew Mix4 Oscillator
+VENOM_CUSTOM = Bypass Logic DigitalDisplay YellowRedLight Slew Mix4 Oscillator MenuTextField
 
 # --------------------------------------------------------------
 # Voxglitch
