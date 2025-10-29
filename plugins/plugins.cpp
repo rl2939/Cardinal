@@ -805,6 +805,9 @@ extern Model* modelBlankPanel;
 #include "ParableInstruments/src/ArableInstruments.hpp"
 #undef modelClouds
 
+// Patchable Devices
+#include "PatchableDevices/modules/plugin.hpp"
+
 // Path Set
 #include "PathSet/src/plugin.hpp"
 
@@ -997,6 +1000,7 @@ Plugin* pluginInstance__myth_modules;
 Plugin* pluginInstance__nonlinearcircuits;
 Plugin* pluginInstance__Orbits;
 Plugin* pluginInstance__ParableInstruments;
+Plugin* pluginInstance__PatchableDevices;
 Plugin* pluginInstance__PathSet;
 Plugin* pluginInstance__PdArray;
 Plugin* pluginInstance__PinkTrombone;
@@ -3051,6 +3055,23 @@ static void initStatic__ParableInstruments()
     }
 }
 
+static void initStatic__PatchableDevices()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__PatchableDevices = p;
+
+    const StaticPluginLoader spl(p, "PatchableDevices");
+    if (spl.ok())
+    {
+        p->addModel(modelComparingCounter);
+        p->addModel(modelDigitalChaoticSystem);
+        p->addModel(modelDualIntegrator);
+        p->addModel(modelNonlinearIntegrator);
+        p->addModel(modelVoltageSequencer);
+        p->addModel(modelWindowGenerators);
+    }
+}
+
 static void initStatic__PathSet()
 {
     Plugin* const p = new Plugin;
@@ -3666,6 +3687,7 @@ void initStaticPlugins()
     initStatic__nonlinearcircuits();
     initStatic__Orbits();
     initStatic__ParableInstruments();
+    initStatic__PatchableDevices();
     initStatic__PathSet();
     initStatic__PdArray();
     initStatic__PinkTrombone();

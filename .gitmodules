@@ -263,3 +263,6 @@
 [submodule "plugins/eightfold"]
 	path = plugins/eightfold
 	url = https://github.com/scanner-darkly/eightfold.git
+[submodule "plugins/PatchableDevices"]
+	path = plugins/PatchableDevices
+	url = https://github.com/nullJaX/vcvrack-patchable-devices

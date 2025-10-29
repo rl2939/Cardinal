@@ -985,6 +985,12 @@ PLUGIN_FILES += $(filter-out PathSet/src/plugin.cpp,$(wildcard PathSet/src/*.cpp
 PATHSET_CUSTOM = PitchShifter
 
 # --------------------------------------------------------------
+# Patchable Devices
+
+PLUGIN_FILES += $(filter-out PatchableDevices/modules/plugin.cpp,$(wildcard PatchableDevices/modules/*.cpp))
+PLUGIN_FILES += $(wildcard PatchableDevices/*/*/*.cpp)
+
+# --------------------------------------------------------------
 # PdArray
 
 PLUGIN_FILES += $(filter-out PdArray/src/plugin.cpp,$(wildcard PdArray/src/*.cpp))
@@ -2683,6 +2689,13 @@ $(BUILD_DIR)/ParableInstruments/%.o: ParableInstruments/%
 		-IArableInstruments/parasites \
 		-Wno-class-memaccess \
 		-Wno-unused-local-typedefs
+
+$(BUILD_DIR)/PatchableDevices/%.cpp.o: PatchableDevices/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(PATCHABLE_DEVICES_CUSTOM),$(call custom_module_names,$(m),PatchableDevices)) \
+		-DpluginInstance=pluginInstance__PatchableDevices
 
 $(BUILD_DIR)/PathSet/%.cpp.o: PathSet/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
