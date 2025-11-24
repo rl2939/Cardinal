@@ -1173,6 +1173,9 @@ MINIPLUGIN_FILES += surgext-helper/surgext-helper.cpp
 
 PLUGIN_FILES += $(filter-out TeknoLogical/src/plugin.cpp,$(wildcard TeknoLogical/src/*.cpp))
 
+# TEKNOLOGICAL_FLAGS += -I$(abspath $(ROOT)/src/Rack/include/ rack.hpp)
+# TEKNOLOGICAL_FLAGS += -I../src/Rack/include/ rack.hpp
+
 # --------------------------------------------------------------
 # unless_modules
 

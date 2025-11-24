@@ -3457,6 +3457,9 @@ static void initStatic__TeknoLogical()
     {
         p->addModel(modelTL_Drum5);
         p->addModel(modelTL_Seq4);
+        p->addModel(modelTL_Reseter);
+        p->addModel(modelTL_Bass);
+        p->addModel(modelTL_Mixes);
     }
 }
 
