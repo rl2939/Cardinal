@@ -358,6 +358,13 @@ extern Model* modelTestVCF;
 // Computerscare
 #include "Computerscare/src/Computerscare.hpp"
 
+// Datanoise
+// Biset
+/* NOTE too much noise in original include, do this a different way
+#include "Datanoise/src/plugin.hpp"
+*/
+extern Model* aurora;
+
 // dBiz
 #define DarkDefaultItem dBizDarkDefaultItem
 #define OrangeLight dBizOrangeLight
@@ -968,6 +975,7 @@ Plugin* pluginInstance__cf;
 Plugin* pluginInstance__ChowDSP;
 Plugin* pluginInstance__Computerscare;
 Plugin* pluginInstance__CVfunk;
+Plugin* pluginInstance__Datanoise;
 Plugin* pluginInstance__dBiz;
 Plugin* pluginInstance__DHE;
 Plugin* pluginInstance__eightfold;
@@ -2086,6 +2094,18 @@ static void initStatic__CVfunk()
         p->addModel(modelHub);
         #undef modelNode
         #undef modelSteps
+    }
+}
+
+static void initStatic__Datanoise()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__Datanoise = p;
+
+    const StaticPluginLoader spl(p, "Datanoise");
+    if (spl.ok())
+    {
+        p->addModel(aurora);
     }
 }
 
@@ -3708,6 +3728,7 @@ void initStaticPlugins()
     initStatic__ChowDSP();
     initStatic__Computerscare();
     initStatic__CVfunk();
+    initStatic__Datanoise();
     initStatic__dBiz();
     initStatic__DHE();
     initStatic__eightfold();

@@ -675,6 +675,15 @@ PLUGIN_FILES += $(filter-out CVfunk/src/plugin.cpp,$(wildcard CVfunk/src/*.cpp))
 CVFUNK_CUSTOM = Steps Node
 
 # --------------------------------------------------------------
+# Datanoise
+
+PLUGIN_FILES += $(filter-out Datanoise/src/plugin.cpp,$(wildcard Datanoise/src/*.cpp))
+
+# modules/types which are present in other plugins
+DATANOISE_CUSTOM = __ct_base __ct_comp Filter__ctx_type_7 Filter__ctx_type_7_init
+DATANOISE_CUSTOM_PER_FILE = __ct_base __ct_comp Filter__ctx_type_7 Filter__ctx_type_7_init
+
+# --------------------------------------------------------------
 # dBiz
 
 PLUGIN_FILES += $(filter-out dBiz/src/plugin.cpp,$(wildcard dBiz/src/*.cpp))
@@ -2332,6 +2341,14 @@ $(BUILD_DIR)/ChowDSP/%.cpp.o: ChowDSP/%.cpp
 		-IChowDSP/lib \
 		-IChowDSP/lib/chowdsp_utils/modules/chowdsp_dsp/WDF \
 		-Wno-deprecated-copy
+
+$(BUILD_DIR)/Datanoise/src/%.cpp.o: Datanoise/src/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(Datanoise_CUSTOM),$(call custom_module_names,$(m),Datanoise)) \
+		$(foreach m,$(DATANOISE_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),Datanoise_$(shell basename -- $*))) \
+		-DpluginInstance=pluginInstance__Datanoise
 
 $(BUILD_DIR)/dBiz/src/%.cpp.o: dBiz/src/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
