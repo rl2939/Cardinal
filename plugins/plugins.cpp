@@ -2084,6 +2084,15 @@ static void initStatic__CVfunk()
         p->addModel(modelWonk);
         p->addModel(modelHammer);
         p->addModel(modelHub);
+        p->addModel(modelCVfunkBlank);
+        p->addModel(modelCVfunkBlank4HP);
+        p->addModel(modelRat);
+        p->addModel(modelCount);
+        p->addModel(modelClpy);
+        p->addModel(modelTuner);
+        p->addModel(modelAlloy);
+        p->addModel(modelOnion);
+        p->addModel(modelStrata);
         #undef modelNode
         #undef modelSteps
     }
