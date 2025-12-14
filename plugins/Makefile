@@ -672,8 +672,7 @@ COMPUTERSCARE_CUSTOM = Quantizer PanelBorder
 PLUGIN_FILES += $(filter-out CVfunk/src/plugin.cpp,$(wildcard CVfunk/src/*.cpp))
 
 # modules/types which are present in other plugins
-CVFUNK_CUSTOM = Steps Node
-CVFUNK_CUSTOM_PER_FILE = OverSamplingShaper CircularBuffer __ct_comp
+CVFUNK_CUSTOM = Steps Node OverSamplingShaper CircularBuffer __ct_comp
 
 # --------------------------------------------------------------
 # dBiz
