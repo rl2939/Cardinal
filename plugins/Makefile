@@ -914,6 +914,7 @@ MINIPLUGIN_FILES += MockbaModular/src/Shapah.cpp
 # Moffenzeef
 
 PLUGIN_FILES += $(filter-out Moffenzeef/src/plugin.cpp,$(wildcard Moffenzeef/src/*.cpp))
+MOFFENZEEF_CUSTOM = VoltageControlledOscillator
 
 # --------------------------------------------------------------
 # Mog
