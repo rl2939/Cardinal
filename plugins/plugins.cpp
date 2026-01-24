@@ -2898,6 +2898,15 @@ static void initStatic__Moffenzeef()
         p->addModel(modelMongrel);
         p->addModel(modelMuskrat);
         p->addModel(modelSimplify);
+        p->addModel(model_2hpBlank);
+        p->addModel(model_14hpBlank);
+        p->addModel(modelSwarm);
+        p->addModel(modelINTENSIFIES);
+        p->addModel(modelTheRunner);
+        p->addModel(modelStargazer);
+        p->addModel(modelKleztizer);
+        p->addModel(modelTantz);
+        p->addModel(modelQuadDeviant);
     }
 }
 
