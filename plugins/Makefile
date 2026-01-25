@@ -2812,7 +2812,10 @@ $(BUILD_DIR)/TriggerFish/%.cpp.o: TriggerFish/%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(TRIGGERFISH_CUSTOM),$(call custom_module_names,$(m),TriggerFish)) \
-		-DpluginInstance=pluginInstance__unless_modules
+		-DpluginInstance=pluginInstance__unless_modules \
+		-Isrc \
+		-Isrc/dsp \
+		-Isrc/models
 
 $(BUILD_DIR)/unless_modules/%.cpp.o: unless_modules/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
