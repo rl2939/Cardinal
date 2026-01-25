@@ -888,6 +888,9 @@ void StoermelderSettings::readFromJson() {}
 void surgext_rack_initialize();
 void surgext_rack_update_theme();
 
+// TriggerFish
+#include "TriggerFish/src/plugin.hpp"
+
 // unless_modules
 #include "unless_modules/src/unless.hpp"
 
@@ -1018,6 +1021,7 @@ Plugin* pluginInstance__StarlingVia;
 Plugin* pluginInstance__stocaudio;
 extern Plugin* pluginInstance__stoermelder_p1;
 Plugin* pluginInstance__surgext;
+Plugin* pluginInstance__TriggerFish;
 Plugin* pluginInstance__unless_modules;
 Plugin* pluginInstance__ValleyAudio;
 Plugin* pluginInstance__Venom;
@@ -3450,6 +3454,21 @@ static void initStatic__surgext()
     }
 }
 
+static void initStatic__TriggerFish()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__TriggerFish = p;
+
+    const StaticPluginLoader spl(p, "TriggerFish");
+    if (spl.ok())
+    {
+        p->addModel(modelTfVCA);
+	    p->addModel(modelTfSlop);
+	    p->addModel(modelTfSlop4);
+	    p->addModel(modelTfVDPO);
+    }
+}
+
 static void initStatic__unless_modules()
 {
     Plugin* const p = new Plugin;
@@ -3766,6 +3785,7 @@ void initStaticPlugins()
     initStatic__stocaudio();
     initStatic__stoermelder_p1();
     initStatic__surgext();
+    initStatic__TriggerFish();
     initStatic__unless_modules();
     initStatic__ValleyAudio();
     initStatic__Venom();
