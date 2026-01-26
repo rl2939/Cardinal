@@ -889,8 +889,13 @@ void surgext_rack_initialize();
 void surgext_rack_update_theme();
 
 // TriggerFish
-#include "TriggerFish/src/models/Transistor1PoleIntegrator.hpp"
+/*
 #include "TriggerFish/src/plugin.hpp"
+*/
+extern Model* modelTfVCA;
+extern Model* modelTfSlop;
+extern Model* modelTfSlop4;
+extern Model* modelTfVDPO;
 
 // unless_modules
 #include "unless_modules/src/unless.hpp"
