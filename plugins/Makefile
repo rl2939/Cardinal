@@ -2625,7 +2625,7 @@ $(BUILD_DIR)/MockbaModular/%.cpp.o: MockbaModular/%.cpp
 $(BUILD_DIR)/Moffenzeef/%.cpp.o: Moffenzeef/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
 	@echo "Compiling $<"
-	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -std=gnu++17 -c -o $@ \
 		$(foreach m,$(MOFFENZEEF_CUSTOM),$(call custom_module_names,$(m),Moffenzeef)) \
 		-DpluginInstance=pluginInstance__Moffenzeef
 
