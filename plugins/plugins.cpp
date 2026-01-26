@@ -894,6 +894,9 @@ void surgext_rack_update_theme();
 // ValleyAudio
 #include "ValleyAudio/src/Valley.hpp"
 
+// VectorModular
+#include "VectorModular/src/plugin.hpp"
+
 // Venom
 #include "Venom/src/plugin.hpp"
 namespace Venom
@@ -1020,6 +1023,7 @@ extern Plugin* pluginInstance__stoermelder_p1;
 Plugin* pluginInstance__surgext;
 Plugin* pluginInstance__unless_modules;
 Plugin* pluginInstance__ValleyAudio;
+Plugin* pluginInstance__VectorModular;
 Plugin* pluginInstance__Venom;
 Plugin* pluginInstance__Voxglitch;
 Plugin* pluginInstance__WhatTheRack;
@@ -3492,6 +3496,21 @@ static void initStatic__ValleyAudio()
     }
 }
 
+static void initStatic__VectorModular()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__VectorModular = p;
+
+    const StaticPluginLoader spl(p, "VectorModular");
+    if (spl.ok())
+    {
+        p->addModel(modelThreeIx9o);
+        p->addModel(modelBaseTrigs);
+        p->addModel(modelSoloMixer);
+        p->addModel(modelBaseOsc);
+    }
+}
+
 static void initStatic__Venom()
 {
     Plugin* const p = new Plugin;
@@ -3768,6 +3787,7 @@ void initStaticPlugins()
     initStatic__surgext();
     initStatic__unless_modules();
     initStatic__ValleyAudio();
+    initStatic__VectorModular();
     initStatic__Venom();
     initStatic__Voxglitch();
     initStatic__WhatTheRack();

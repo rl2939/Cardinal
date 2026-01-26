@@ -1305,6 +1305,11 @@ VALLEYAUDIO_CUSTOM = $(DRWAV) Chord DigitalDisplay
 VALLEYAUDIO_CUSTOM_PER_FILE = TempoKnob
 
 # --------------------------------------------------------------
+# VectorModular
+
+PLUGIN_FILES += $(filter-out VectorModular/src/plugin.cpp,$(wildcard VectorModular/src/*.cpp))
+
+# --------------------------------------------------------------
 # Venom
 
 PLUGIN_FILES += $(filter-out Venom/src/plugin.cpp,$(wildcard Venom/src/*.cpp))
@@ -2819,6 +2824,14 @@ $(BUILD_DIR)/ValleyAudio/%.cpp.o: ValleyAudio/%.cpp
 		-IValleyAudio/src \
 		-Wno-sign-compare \
 		-Wno-unused-but-set-variable
+
+$(BUILD_DIR)/VectorModular/%.cpp.o: VectorModular/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(VECTORMODULAR_CUSTOM),$(call custom_module_names,$(m),VectorModular)) \
+		-DpluginInstance=pluginInstance__VectorModular \
+		-IVectorModular/pichenettes-eurorack
 
 $(BUILD_DIR)/Venom/%.cpp.o: Venom/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
