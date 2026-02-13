@@ -1,6 +1,6 @@
 /*
  * DISTRHO Cardinal Plugin
- * Copyright (C) 2021-2024 Filipe Coelho <falktx@falktx.com>
+ * Copyright (C) 2021-2026 Filipe Coelho <falktx@falktx.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -339,7 +339,7 @@ class CardinalUI : public CardinalBaseUI,
 
 public:
     CardinalUI()
-        : CardinalBaseUI(DISTRHO_UI_DEFAULT_WIDTH, DISTRHO_UI_DEFAULT_HEIGHT),
+        : CardinalBaseUI(),
         #if ! DISTRHO_PLUGIN_WANT_DIRECT_ACCESS
          #ifdef DISTRHO_OS_WASM
           fInitializer(new Initializer(static_cast<const CardinalBasePlugin*>(nullptr), this)),
