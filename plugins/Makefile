@@ -255,17 +255,11 @@ PLUGIN_FILES += Cardinal/src/glBars.cpp
 endif
 endif
 
-ifneq ($(STATIC_BUILD),true)
+ifneq ($(MOD_BUILD),true)
 PLUGIN_FILES += Cardinal/src/AudioFile.cpp
 ifneq ($(WASM),true)
 PLUGIN_FILES += Cardinal/src/Carla.cpp
 PLUGIN_FILES += Cardinal/src/Ildaeil.cpp
-endif
-ifneq ($(HEADLESS),true)
-ifeq ($(HAVE_X11),true)
-PLUGIN_FILES += Cardinal/src/EmbedWidget.cpp
-PLUGIN_FILES += Cardinal/src/MPV.cpp
-endif
 endif
 endif
 
@@ -690,7 +684,7 @@ COMPUTERSCARE_CUSTOM = Quantizer PanelBorder
 PLUGIN_FILES += $(filter-out CVfunk/src/plugin.cpp,$(wildcard CVfunk/src/*.cpp))
 
 # modules/types which are present in other plugins
-CVFUNK_CUSTOM = Steps
+CVFUNK_CUSTOM = Steps Node
 
 # --------------------------------------------------------------
 # dBiz
@@ -705,19 +699,6 @@ DBIZ_CUSTOM_PER_FILE = LERP MultiFilter Oscillator calcOutput sineOsc subBank
 # DHE-Modules
 
 PLUGIN_FILES += $(filter-out DHE-Modules/src/plugin.cpp,$(wildcard DHE-Modules/src/modules/*/init.cpp))
-
-# --------------------------------------------------------------
-# DrumKit
-
-PLUGIN_FILES += $(wildcard DrumKit/src/*.cpp)
-PLUGIN_FILES += $(wildcard DrumKit/src/controller/*.cpp)
-PLUGIN_FILES += $(wildcard DrumKit/src/view/*.cpp)
-PLUGIN_FILES += $(wildcard DrumKit/src/model/*.cpp)
-PLUGIN_FILES += $(wildcard DrumKit/deps/*.cpp)
-PLUGIN_FILES += $(wildcard DrumKit/deps/SynthDevKit/src/*.cpp)
-
-# modules/types which are present in other plugins
-DRUMKIT_CUSTOM = ADSR Envelope LowFrequencyOscillator
 
 # --------------------------------------------------------------
 # eightfold
@@ -835,7 +816,7 @@ IHTSYN_CUSTOM_PER_FILE += mv_statevariable
 
 PLUGIN_FILES += $(filter-out JW-Modules/src/JWModules.cpp JW-Modules/src/Str1ker.cpp,$(wildcard JW-Modules/src/*.cpp))
 
-ifneq ($(STATIC_BUILD),true)
+ifneq ($(MOD_BUILD),true)
 PLUGIN_FILES += JW-Modules/src/Str1ker.cpp
 PLUGIN_FILES += $(wildcard JW-Modules/lib/oscpack/ip/*.cpp)
 PLUGIN_FILES += $(wildcard JW-Modules/lib/oscpack/osc/*.cpp)
@@ -855,7 +836,7 @@ JW_CUSTOM = PlayHead Quantizer Arrange
 PLUGIN_FILES += $(filter-out kocmoc/src/plugin.cpp,$(wildcard kocmoc/src/*.cpp))
 
 # modules/types which are present in other plugins
-KOCMOC_CUSTOM = Phasor __ct_base __ct_comp
+KOCMOC_CUSTOM = Diode Phasor __ct_base __ct_comp
 
 # --------------------------------------------------------------
 # LifeFormModular
@@ -1336,6 +1317,11 @@ VALLEYAUDIO_CUSTOM = $(DRWAV) Chord DigitalDisplay
 VALLEYAUDIO_CUSTOM_PER_FILE = TempoKnob
 
 # --------------------------------------------------------------
+# Venom
+
+PLUGIN_FILES += $(filter-out Venom/src/plugin.cpp,$(wildcard Venom/src/*.cpp))
+
+# --------------------------------------------------------------
 # Voxglitch
 
 PLUGIN_FILES += $(filter-out voxglitch/src/plugin.cpp,$(wildcard voxglitch/src/*.cpp))
@@ -1349,6 +1335,19 @@ VOXGLITCH_CUSTOM_PER_FILE = AudioBuffer GateSequencer Grain SamplePlayer Sequenc
 # WhatTheRack
 
 PLUGIN_FILES += $(filter-out WhatTheRack/src/WhatTheRack.cpp,$(wildcard WhatTheRack/src/*.cpp))
+
+# --------------------------------------------------------------
+# WSTD-Drums
+
+PLUGIN_FILES += $(wildcard WSTD-Drums/src/*.cpp)
+PLUGIN_FILES += $(wildcard WSTD-Drums/src/controller/*.cpp)
+PLUGIN_FILES += $(wildcard WSTD-Drums/src/view/*.cpp)
+PLUGIN_FILES += $(wildcard WSTD-Drums/src/model/*.cpp)
+PLUGIN_FILES += $(wildcard WSTD-Drums/deps/*.cpp)
+PLUGIN_FILES += $(wildcard WSTD-Drums/deps/SynthDevKit/src/*.cpp)
+
+# modules/types which are present in other plugins
+WSTD_DRUMS_CUSTOM = ADSR Envelope LowFrequencyOscillator
 
 # --------------------------------------------------------------
 # ZetaCarinaeModules
@@ -1499,7 +1498,7 @@ RESOURCE_FILES += BaconPlugs/res/midi/goldberg
 RESOURCE_FILES += Befaco/res/SpringReverbIR.f32
 RESOURCE_FILES += cf/playeroscs
 RESOURCE_FILES += DHE-Modules/svg
-RESOURCE_FILES += DrumKit/res/samples
+RESOURCE_FILES += WSTD-Drums/res/samples
 RESOURCE_FILES += Meander/res
 RESOURCE_FILES += MindMeldModular/res/ShapeMaster/CommunityPresets
 RESOURCE_FILES += MindMeldModular/res/ShapeMaster/CommunityShapes
@@ -1859,7 +1858,7 @@ LV2_RESOURCES += $(PLUGIN_LIST:%=../bin/CardinalFX.lv2/resources/PluginManifests
 LV2_RESOURCES += $(RESOURCE_FILES:%=../bin/Cardinal.lv2/resources/%)
 LV2_RESOURCES += $(RESOURCE_FILES:%=../bin/CardinalFX.lv2/resources/%)
 
-# MOD builds only have LV2 FX variant for now
+# wasm builds only have standalone and mini
 else ifeq ($(WASM),true)
 
 MINI_RESOURCES  = $(MINIPLUGIN_LIST:%=../bin/CardinalMini.lv2/resources/PluginManifests/%.json)
@@ -2229,7 +2228,7 @@ $(BUILD_DIR)/AS/%.cpp.o: AS/%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(AS_CUSTOM),$(call custom_module_names,$(m),AS)) \
-		$(foreach m,$(AS_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),AS_$(shell basename $*))) \
+		$(foreach m,$(AS_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),AS_$(shell basename -- $*))) \
 		-DpluginInstance=pluginInstance__AS \
 		-Wno-unused-private-field
 
@@ -2285,7 +2284,7 @@ $(BUILD_DIR)/Bidoo%.cpp.o: Bidoo%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(BIDOO_CUSTOM),$(call custom_module_names,$(m),Bidoo)) \
-		$(foreach m,$(BIDOO_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),Bidoo_$(shell basename $*))) \
+		$(foreach m,$(BIDOO_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),Bidoo_$(shell basename -- $*))) \
 		-DpluginInstance=pluginInstance__Bidoo \
 		-DSKIP_MINGW_FORMAT \
 		-IBidoo/src/dep/gverb/include \
@@ -2305,7 +2304,7 @@ $(BUILD_DIR)/BogaudioModules%.cpp.o: BogaudioModules%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(BOGAUDIO_CUSTOM),$(call custom_module_names,$(m),Bogaudio)) \
-		$(foreach m,$(BOGAUDIO_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),Bogaudio_$(shell basename $*))) \
+		$(foreach m,$(BOGAUDIO_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),Bogaudio_$(shell basename -- $*))) \
 		-DpluginInstance=pluginInstance__BogaudioModules \
 		-DRACK_SIMD=1 \
 		-DSKIP_MINGW_FORMAT \
@@ -2358,7 +2357,7 @@ $(BUILD_DIR)/dBiz/src/%.cpp.o: dBiz/src/%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(DBIZ_CUSTOM),$(call custom_module_names,$(m),dBiz)) \
-		$(foreach m,$(DBIZ_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),dBiz_$(shell basename $*))) \
+		$(foreach m,$(DBIZ_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),dBiz_$(shell basename -- $*))) \
 		-DpluginInstance=pluginInstance__dBiz
 
 $(BUILD_DIR)/DHE-Modules/src/%.cpp.o: DHE-Modules/src/%.cpp
@@ -2368,15 +2367,6 @@ $(BUILD_DIR)/DHE-Modules/src/%.cpp.o: DHE-Modules/src/%.cpp
 		$(foreach m,$(DHE_CUSTOM),$(call custom_module_names,$(m),DHE)) \
 		-DpluginInstance=pluginInstance__DHE \
 		-IDHE-Modules/src
-
-$(BUILD_DIR)/DrumKit/%.cpp.o: DrumKit/%.cpp
-	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
-	@echo "Compiling $<"
-	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
-		$(foreach m,$(DRUMKIT_CUSTOM),$(call custom_module_names,$(m),DrumKit)) \
-		-DpluginInstance=pluginInstance__DrumKit \
-		-Dinit=init__DrumKit \
-		-Wno-sign-compare
 
 $(BUILD_DIR)/eightfold/src/%.cpp.o: eightfold/src/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
@@ -2527,7 +2517,7 @@ $(BUILD_DIR)/ImpromptuModular%.cpp.o: ImpromptuModular%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(IMPROMPTUMODULAR_CUSTOM),$(call custom_module_names,$(m),ImpromptuModular)) \
-		$(foreach m,$(IMPROMPTUMODULAR_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),ImpromptuModular_$(shell basename $*))) \
+		$(foreach m,$(IMPROMPTUMODULAR_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),ImpromptuModular_$(shell basename -- $*))) \
 		-DpluginInstance=pluginInstance__ImpromptuModular \
 		-Wno-format-truncation
 
@@ -2536,7 +2526,7 @@ $(BUILD_DIR)/ihtsyn/%.cpp.o: ihtsyn/%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(IHTSYN_CUSTOM),$(call custom_module_names,$(m),ihtsyn)) \
-		$(foreach m,$(IHTSYN_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),ihtsyn_$(shell basename $*))) \
+		$(foreach m,$(IHTSYN_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),ihtsyn_$(shell basename -- $*))) \
 		-DpluginInstance=pluginInstance__ihtsyn
 
 $(BUILD_DIR)/JW-Modules/src/WavHead.cpp.o: JW-Modules/src/WavHead.cpp
@@ -2657,7 +2647,7 @@ $(BUILD_DIR)/mscHack/%.cpp.o: mscHack/%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(MSCHACK_CUSTOM),$(call custom_module_names,$(m),mscHack)) \
-		$(foreach m,$(MSCHACK_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),mscHack_$(shell basename $*))) \
+		$(foreach m,$(MSCHACK_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),mscHack_$(shell basename -- $*))) \
 		-DthePlugin=pluginInstance__mscHack \
 		-Dinit=init__mscHack \
 		-Wno-class-memaccess \
@@ -2738,7 +2728,7 @@ $(BUILD_DIR)/Prism/%.cpp.o: Prism/%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(PRISM_CUSTOM),$(call custom_module_names,$(m),Prism)) \
-		$(foreach m,$(PRISM_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),Prism_$(shell basename $*))) \
+		$(foreach m,$(PRISM_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),Prism_$(shell basename -- $*))) \
 		-DpluginInstance=pluginInstance__Prism \
 
 $(BUILD_DIR)/rackwindows/%.cpp.o: rackwindows/%.cpp
@@ -2812,7 +2802,7 @@ $(BUILD_DIR)/stoermelder-packone/%.cpp.o: stoermelder-packone/%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(STOERMELDER_PACKONE_CUSTOM),$(call custom_module_names,$(m),stoermelder_p1)) \
-		$(foreach m,$(STOERMELDER_PACKONE_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),stoermelder_p1_$(shell basename $*))) \
+		$(foreach m,$(STOERMELDER_PACKONE_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),stoermelder_p1_$(shell basename -- $*))) \
 		-DpluginInstance=pluginInstance__stoermelder_p1 \
 		-Dinit=init__stoermelder_p1
 
@@ -2842,19 +2832,28 @@ $(BUILD_DIR)/ValleyAudio/%.cpp.o: ValleyAudio/%.cpp
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(VALLEYAUDIO_CUSTOM),$(call custom_module_names,$(m),ValleyAudio)) \
-		$(foreach m,$(VALLEYAUDIO_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),ValleyAudio_$(shell basename $*))) \
+		$(foreach m,$(VALLEYAUDIO_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),ValleyAudio_$(shell basename -- $*))) \
 		-DpluginInstance=pluginInstance__ValleyAudio \
 		-DSTDIO_OVERRIDE=ValleyAudio \
 		-IValleyAudio/src \
 		-Wno-sign-compare \
 		-Wno-unused-but-set-variable
 
+$(BUILD_DIR)/Venom/%.cpp.o: Venom/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(VENOM_CUSTOM),$(call custom_module_names,$(m),Venom)) \
+		-DSKIP_MINGW_FORMAT \
+		-DpluginInstance=pluginInstance__Venom \
+		-lglfw
+
 $(BUILD_DIR)/voxglitch/%.cpp.o: voxglitch/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
 	@echo "Compiling $<"
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(VOXGLITCH_CUSTOM),$(call custom_module_names,$(m),Voxglitch)) \
-		$(foreach m,$(VOXGLITCH_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),Voxglitch_$(shell basename $*))) \
+		$(foreach m,$(VOXGLITCH_CUSTOM_PER_FILE),$(call custom_per_file_names,$(m),Voxglitch_$(shell basename -- $*))) \
 		-DpluginInstance=pluginInstance__Voxglitch \
 		-DSKIP_MINGW_FORMAT
 
@@ -2864,6 +2863,15 @@ $(BUILD_DIR)/WhatTheRack/%.cpp.o: WhatTheRack/%.cpp
 	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
 		$(foreach m,$(WHATTHERACK_CUSTOM),$(call custom_module_names,$(m),WhatTheRack)) \
 		-DpluginInstance=pluginInstance__WhatTheRack
+
+$(BUILD_DIR)/WSTD-Drums/%.cpp.o: WSTD-Drums/%.cpp
+	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"
+	@echo "Compiling $<"
+	$(SILENT)$(CXX) $< $(BUILD_CXX_FLAGS) -c -o $@ \
+		$(foreach m,$(WSTD_DRUMS_CUSTOM),$(call custom_module_names,$(m),WSTD_Drums)) \
+		-DpluginInstance=pluginInstance__WSTD_Drums \
+		-Dinit=init__WSTD_Drums \
+		-Wno-sign-compare
 
 $(BUILD_DIR)/ZamAudio/%.cpp.o: ZamAudio/%.cpp
 	-@mkdir -p "$(shell dirname $(BUILD_DIR)/$<)"

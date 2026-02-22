@@ -360,9 +360,11 @@ extern Model* modelTestVCF;
 #include "cf/src/plugin.hpp"
 
 // CVfunk
+#define modelNode modelCVfunkNode
 #define modelSteps modelCVfunkSteps
 #include "CVfunk/src/plugin.hpp"
 #undef modelSteps
+#undef modelNode
 
 // ChowDSP
 #include "ChowDSP/src/plugin.hpp"
@@ -411,10 +413,6 @@ namespace tapers { void init(Plugin*); }
 namespace truth { void init(Plugin*); }
 namespace xycloid { void init(Plugin*); }
 }
-
-// DrumKit
-#include "DrumKit/src/DrumKit.hpp"
-void setupSamples();
 
 // eightfold
 #include "eightfold/src/plugin.hpp"
@@ -485,6 +483,7 @@ extern Model* modelChaos2Op;
 extern Model* modelChaos3Op;
 extern Model* modelChaoticAttractors;
 extern Model* modelClockedNoise;
+extern Model* modelClockToPhasor;
 extern Model* modelComparator;
 extern Model* modelContrast;
 extern Model* modelCrackle;
@@ -503,6 +502,7 @@ extern Model* modelGingerbread;
 extern Model* modelLogicCombine;
 extern Model* modelMidSide;
 extern Model* modelMinMax;
+extern Model* modelNormals;
 extern Model* modelPhaseDrivenSequencer;
 extern Model* modelPhaseDrivenSequencer32;
 extern Model* modelPhasorAnalyzer;
@@ -532,8 +532,10 @@ extern Model* modelPhasorSubstepShape;
 extern Model* modelPhasorSwing;
 extern Model* modelPhasorTimetable;
 extern Model* modelPhasorToClock;
+extern Model* modelPhasorToRandom;
 extern Model* modelPhasorToLFO;
 extern Model* modelPhasorToWaveforms;
+extern Model* modelPolymetricPhasors;
 extern Model* modelProbability;
 extern Model* modelRandomGates;
 extern Model* modelRotator;
@@ -911,6 +913,13 @@ void surgext_rack_update_theme();
 // ValleyAudio
 #include "ValleyAudio/src/Valley.hpp"
 
+// Venom
+#include "Venom/src/plugin.hpp"
+namespace Venom
+{
+    void readDefaultThemes();
+}
+
 // Voxglitch
 #define modelLooper modelVoxglitchLooper
 #include "voxglitch/src/plugin.hpp"
@@ -918,6 +927,10 @@ void surgext_rack_update_theme();
 
 // WhatTheRack
 #include "WhatTheRack/src/WhatTheRack.hpp"
+
+// WSTD-Drums
+#include "WSTD-Drums/src/WSTD_Drums.hpp"
+void setupSamples();
 
 // ZetaCarinaeModules
 #include "ZetaCarinaeModules/src/plugin.hpp"
@@ -977,7 +990,6 @@ Plugin* pluginInstance__Computerscare;
 Plugin* pluginInstance__CVfunk;
 Plugin* pluginInstance__dBiz;
 Plugin* pluginInstance__DHE;
-extern Plugin* pluginInstance__DrumKit;
 Plugin* pluginInstance__eightfold;
 Plugin* pluginInstance__EnigmaCurry;
 Plugin* pluginInstance__ESeries;
@@ -1028,8 +1040,10 @@ extern Plugin* pluginInstance__stoermelder_p1;
 Plugin* pluginInstance__surgext;
 Plugin* pluginInstance__unless_modules;
 Plugin* pluginInstance__ValleyAudio;
+Plugin* pluginInstance__Venom;
 Plugin* pluginInstance__Voxglitch;
 Plugin* pluginInstance__WhatTheRack;
+extern Plugin* pluginInstance__WSTD_Drums;
 Plugin* pluginInstance__ZetaCarinaeModules;
 Plugin* pluginInstance__ZZC;
 
@@ -1075,10 +1089,17 @@ struct StaticPluginLoader {
             return;
         }
 
-        // force ABI, we use static plugins so this doesnt matter as long as it builds
-        json_t* const version = json_string((APP_VERSION_MAJOR + ".0").c_str());
-        json_object_set(rootJ, "version", version);
-        json_decref(version);
+        std::string version;
+        if (json_t* const versionJ = json_object_get(rootJ, "version"))
+            version = json_string_value(versionJ);
+
+        if (!string::startsWith(version, APP_VERSION_MAJOR + "."))
+        {
+            // force ABI, we use static plugins so this doesnt matter as long as it builds
+            json_t* const versionJ = json_string((APP_VERSION_MAJOR + ".0").c_str());
+            json_object_set(rootJ, "version", versionJ);
+            json_decref(versionJ);
+        }
 
         // Load manifest
         p->fromJson(rootJ);
@@ -1163,12 +1184,12 @@ static void initStatic__Cardinal()
        #else
         spl.removeModule("glBars");
        #endif
-       #ifndef STATIC_BUILD
+       #ifndef __MOD_DEVICES__
         p->addModel(modelAudioFile);
        #else
         spl.removeModule("AudioFile");
        #endif
-       #if !(defined(DISTRHO_OS_WASM) || defined(STATIC_BUILD))
+       #if !(defined(DISTRHO_OS_WASM) || defined(__MOD_DEVICES__))
         p->addModel(modelCarla);
         p->addModel(modelIldaeil);
        #else
@@ -1179,11 +1200,6 @@ static void initStatic__Cardinal()
         p->addModel(modelSassyScope);
        #else
         spl.removeModule("SassyScope");
-       #endif
-       #if defined(HAVE_X11) && !defined(HEADLESS) && !defined(STATIC_BUILD)
-        p->addModel(modelMPV);
-       #else
-        spl.removeModule("MPV");
        #endif
        #ifdef HAVE_FFTW3F
         p->addModel(modelAudioToCVPitch);
@@ -2089,6 +2105,7 @@ static void initStatic__CVfunk()
     if (spl.ok())
     {
         #define modelSteps modelCVfunkSteps
+        #define modelNode modelCVfunkNode
         p->addModel(modelSteps);
         p->addModel(modelEnvelopeArray);
         p->addModel(modelPentaSequencer);
@@ -2110,6 +2127,16 @@ static void initStatic__CVfunk()
         p->addModel(modelPreeeeeeeeeeessedDuck);
         p->addModel(modelArrange);
         p->addModel(modelTriDelay);
+        p->addModel(modelTatami);
+        p->addModel(modelCartesia);
+        p->addModel(modelJunkDNA);
+        p->addModel(modelPicus);
+        p->addModel(modelNode);
+        p->addModel(modelWeave);
+        p->addModel(modelWonk);
+        p->addModel(modelHammer);
+        p->addModel(modelHub);
+        #undef modelNode
         #undef modelSteps
     }
 }
@@ -2189,30 +2216,6 @@ static void initStatic__DHE()
         dhe::tapers::init(p);
         dhe::truth::init(p);
         dhe::xycloid::init(p);
-    }
-}
-
-static void initStatic__DrumKit()
-{
-    Plugin* const p = new Plugin;
-    pluginInstance__DrumKit = p;
-
-    const StaticPluginLoader spl(p, "DrumKit");
-    if (spl.ok())
-    {
-        setupSamples();
-        p->addModel(modelBD9);
-        p->addModel(modelSnare);
-        p->addModel(modelClosedHH);
-        p->addModel(modelOpenHH);
-        p->addModel(modelDMX);
-        p->addModel(modelCR78);
-        p->addModel(modelSBD);
-        p->addModel(modelGnome);
-        p->addModel(modelSequencer);
-        p->addModel(modelTomi);
-        p->addModel(modelBaronial);
-        p->addModel(modelMarionette);
     }
 }
 
@@ -2475,6 +2478,7 @@ static void initStatic__HetrickCV()
         p->addModel(modelChaos3Op);
         p->addModel(modelChaoticAttractors);
         p->addModel(modelClockedNoise);
+        p->addModel(modelClockToPhasor);
         p->addModel(modelComparator);
         p->addModel(modelContrast);
         p->addModel(modelCrackle);
@@ -2493,6 +2497,7 @@ static void initStatic__HetrickCV()
         p->addModel(modelLogicCombine);
         p->addModel(modelMidSide);
         p->addModel(modelMinMax);
+        p->addModel(modelNormals);
         p->addModel(modelPhaseDrivenSequencer);
         p->addModel(modelPhaseDrivenSequencer32);
         p->addModel(modelPhasorAnalyzer);
@@ -2522,8 +2527,10 @@ static void initStatic__HetrickCV()
         p->addModel(modelPhasorSwing);
         p->addModel(modelPhasorTimetable);
         p->addModel(modelPhasorToClock);
+        p->addModel(modelPhasorToRandom);
         p->addModel(modelPhasorToLFO);
         p->addModel(modelPhasorToWaveforms);
+        p->addModel(modelPolymetricPhasors);
         p->addModel(modelProbability);
         p->addModel(modelRandomGates);
         p->addModel(modelRotator);
@@ -2639,7 +2646,7 @@ static void initStatic__JW()
         p->addModel(modelCoolBreeze);
         p->addModel(modelPete);
         p->addModel(modelTimer);
-       #ifndef STATIC_BUILD
+       #ifndef __MOD_DEVICES__
         p->addModel(modelStr1ker);
        #else
         spl.removeModule("Str1ker");
@@ -2663,6 +2670,7 @@ static void initStatic__kocmoc()
         p->addModel(modelTRG);
         p->addModel(modelLADR);
         p->addModel(modeluLADR);
+        p->addModel(modelDIOD);
         p->addModel(modelOP);
         p->addModel(modelPHASR);
         p->addModel(modelMUL);
@@ -3283,6 +3291,7 @@ static void initStatic__Sapphire()
         p->addModel(modelSapphireTout);
         p->addModel(modelSapphireTricorder);
         p->addModel(modelSapphireTubeUnit);
+        p->addModel(modelSapphireZoo);
     }
 }
 
@@ -3530,6 +3539,82 @@ static void initStatic__ValleyAudio()
     }
 }
 
+static void initStatic__Venom()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__Venom = p;
+
+    const StaticPluginLoader spl(p, "Venom");
+    if (spl.ok())
+    {
+        p->addModel(modelVenomAD_ASR);
+        p->addModel(modelVenomAuxClone);
+        p->addModel(modelVenomBayInput);
+        p->addModel(modelVenomBayNorm);
+        p->addModel(modelVenomBayOutput);
+        p->addModel(modelVenomBenjolinOsc);
+        p->addModel(modelVenomBenjolinGatesExpander);
+        p->addModel(modelVenomBenjolinVoltsExpander);
+        p->addModel(modelVenomBernoulliSwitch);
+        p->addModel(modelVenomBernoulliSwitchExpander);
+        p->addModel(modelVenomBlocker);
+        p->addModel(modelVenomBypass);
+        p->addModel(modelVenomCloneMerge);
+        p->addModel(modelVenomCompare2);
+        p->addModel(modelVenomCrossFade3D);
+        p->addModel(modelVenomHQ);
+        p->addModel(modelVenomKnob5);
+        p->addModel(modelVenomLinearBeats);
+        p->addModel(modelVenomLinearBeatsExpander);
+        p->addModel(modelVenomLogic);
+        p->addModel(modelVenomMix4);
+        p->addModel(modelVenomMix4Stereo);
+        p->addModel(modelVenomMixFade);
+        p->addModel(modelVenomMixFade2);
+        p->addModel(modelVenomMixMute);
+        p->addModel(modelVenomMixOffset);
+        p->addModel(modelVenomMixPan);
+        p->addModel(modelVenomMixSend);
+        p->addModel(modelVenomMixSolo);
+        p->addModel(modelVenomMousePad);
+        p->addModel(modelVenomMultiMerge);
+        p->addModel(modelVenomMultiSplit);
+        p->addModel(modelVenomSVF);
+        p->addModel(modelVenomOscillator);
+        p->addModel(modelVenomNORS_IQ);
+        p->addModel(modelVenomNORSIQChord2Scale);
+        p->addModel(modelVenomPan3D);
+        p->addModel(modelVenomPolyClone);
+        p->addModel(modelVenomPolyFade);
+        p->addModel(modelVenomPolyOffset);
+        p->addModel(modelVenomPolySHASR);
+        p->addModel(modelVenomPolyScale);
+        p->addModel(modelVenomPolyUnison);
+        p->addModel(modelVenomPush5);
+        p->addModel(modelVenomQuadVCPolarizer);
+        p->addModel(modelVenomRecurse);
+        p->addModel(modelVenomRecurseStereo);
+        p->addModel(modelVenomReformation);
+        p->addModel(modelVenomRhythmExplorer);
+        p->addModel(modelVenomShapedVCA);
+        p->addModel(modelVenomSlew);
+        p->addModel(modelVenomSphereToXYZ);
+        p->addModel(modelVenomThru);
+        p->addModel(modelVenomVCAMix4);
+        p->addModel(modelVenomVCAMix4Stereo);
+        p->addModel(modelVenomVCOUnit);
+        p->addModel(modelVenomBlank);
+        p->addModel(modelVenomWaveFolder);
+        p->addModel(modelVenomWaveMangler);
+        p->addModel(modelVenomWaveMultiplier);
+        p->addModel(modelVenomWidgetMenuExtender);
+        p->addModel(modelVenomWinComp);
+        p->addModel(modelVenomXM_OP);
+
+        Venom::readDefaultThemes();
+    }
+}
+
 static void initStatic__Voxglitch()
 {
     Plugin* p = new Plugin;
@@ -3581,6 +3666,30 @@ static void initStatic__WhatTheRack()
       p->addModel(modelWhatTheRack);
       p->addModel(modelWhatTheMod);
       p->addModel(modelWhatTheJack);
+    }
+}
+
+static void initStatic__WSTD_Drums()
+{
+    Plugin* const p = new Plugin;
+    pluginInstance__WSTD_Drums = p;
+
+    const StaticPluginLoader spl(p, "WSTD-Drums");
+    if (spl.ok())
+    {
+        setupSamples();
+        p->addModel(modelBD9);
+        p->addModel(modelSnare);
+        p->addModel(modelClosedHH);
+        p->addModel(modelOpenHH);
+        p->addModel(modelDMX);
+        p->addModel(modelCR78);
+        p->addModel(modelSBD);
+        p->addModel(modelGnome);
+        p->addModel(modelSequencer);
+        p->addModel(modelTomi);
+        p->addModel(modelBaronial);
+        p->addModel(modelMarionette);
     }
 }
 
@@ -3657,7 +3766,6 @@ void initStaticPlugins()
     initStatic__CVfunk();
     initStatic__dBiz();
     initStatic__DHE();
-    initStatic__DrumKit();
     initStatic__eightfold();
     initStatic__EnigmaCurry();
     initStatic__ESeries();
@@ -3708,8 +3816,10 @@ void initStaticPlugins()
     initStatic__surgext();
     initStatic__unless_modules();
     initStatic__ValleyAudio();
+    initStatic__Venom();
     initStatic__Voxglitch();
     initStatic__WhatTheRack();
+    initStatic__WSTD_Drums();
     initStatic__ZetaCarinaeModules();
     initStatic__ZZC();
 

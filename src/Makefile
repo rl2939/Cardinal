@@ -33,6 +33,7 @@ BUILD_CXX_FLAGS += -DnsvgParseFromFile=nsvgParseFromFileCardinal
 
 RACK_FILES += AsyncDialog.cpp
 RACK_FILES += CardinalModuleWidget.cpp
+RACK_FILES += custom/Browser.cpp
 RACK_FILES += custom/asset.cpp
 RACK_FILES += custom/dep.cpp
 RACK_FILES += custom/library.cpp
@@ -68,6 +69,7 @@ IGNORED_FILES += Rack/src/plugin.cpp
 IGNORED_FILES += Rack/src/rtaudio.cpp
 IGNORED_FILES += Rack/src/rtmidi.cpp
 IGNORED_FILES += Rack/src/app/AudioDisplay.cpp
+IGNORED_FILES += Rack/src/app/Browser.cpp
 IGNORED_FILES += Rack/src/app/MenuBar.cpp
 IGNORED_FILES += Rack/src/app/MidiDisplay.cpp
 IGNORED_FILES += Rack/src/app/ModuleWidget.cpp
@@ -146,6 +148,9 @@ mini: $(TARGETS)
 au: $(TARGETS)
 	$(MAKE) au -C CardinalFX $(CARDINAL_SYNTH_ARGS)
 	$(MAKE) au -C CardinalSynth $(CARDINAL_SYNTH_ARGS)
+
+mapi: $(TARGETS)
+	$(MAKE) mapi -C CardinalFX $(CARDINAL_FX_ARGS)
 
 lv2: $(TARGETS)
 	$(MAKE) lv2 -C Cardinal
