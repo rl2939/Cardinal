@@ -323,6 +323,8 @@ PLUGIN_FILES += $(wildcard 4ms-XOXDrums/src/modules/*.cc)
 PLUGIN_FILES += $(wildcard 4ms-XOXDrums/src/helpers/*.cc)
 4MS_XOXDRUM_FLAGS = -std=gnu++20 #-std=gnu++17 
 4MS_XOXDRUM_FLAGS = -I4ms-XOXDrums/metamodule-plugin-sdk/metamodule-core-interface CoreModules/CoreProcessor.hh
+4MS_XOXDRUM_FLAGS = -I$(METAMODULE_SDK_DIR)/core-interface
+4MS_XOXDRUM_FLAGS = -I$(METAMODULE_SDK_DIR)/cpputil
 
 4MSXOXDRUMS_CUSTOM = Duck
 
